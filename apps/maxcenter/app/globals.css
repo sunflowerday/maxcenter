@@ -61,10 +61,12 @@
   }
 
   * {
-    @apply border-border;
+    border-color: var(--border);
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    background-color: var(--background);
+    color: var(--foreground);
+    antialiased: -webkit-font-smoothing, -moz-osx-font-smoothing, font-synthesis: none, text-rendering: optimizeLegibility;
   }
 }
