@@ -67,6 +67,8 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
-    antialiased: -webkit-font-smoothing, -moz-osx-font-smoothing, font-synthesis: none, text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 }
