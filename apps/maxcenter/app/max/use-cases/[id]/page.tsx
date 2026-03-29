@@ -22,18 +22,18 @@ import {
 function BackgroundSection({ useCase }: { useCase: UseCase }) {
   return (
     <section className="mb-8">
-      <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-gray-100">Background</h2>
-      <div className="rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 p-6 dark:from-gray-800 dark:to-gray-800/50">
-        <p className="text-gray-700 dark:text-gray-300">
-          <span className="font-semibold text-gray-900 dark:text-gray-100">WHO:</span>{" "}
+      <h2 className="mb-4 text-xl font-semibold text-foreground dark:text-foreground">Background</h2>
+      <div className="rounded-lg bg-gradient-to-br from-muted to-muted/50 p-6 dark:from-secondary dark:to-secondary/50">
+        <p className="text-foreground dark:text-foreground">
+          <span className="font-semibold text-foreground dark:text-foreground">WHO:</span>{" "}
           {useCase.background.who}{". "}
-          <span className="font-semibold text-gray-900 dark:text-gray-100">WHAT:</span>{" "}
+          <span className="font-semibold text-foreground dark:text-foreground">WHAT:</span>{" "}
           {useCase.background.what}{". "}
-          <span className="font-semibold text-gray-900 dark:text-gray-100">WHEN:</span>{" "}
+          <span className="font-semibold text-foreground dark:text-foreground">WHEN:</span>{" "}
           {useCase.background.when}{". "}
-          <span className="font-semibold text-gray-900 dark:text-gray-100">WHERE:</span>{" "}
+          <span className="font-semibold text-foreground dark:text-foreground">WHERE:</span>{" "}
           {useCase.background.where}{". "}
-          <span className="font-semibold text-gray-900 dark:text-gray-100">WHY:</span>{" "}
+          <span className="font-semibold text-foreground dark:text-foreground">WHY:</span>{" "}
           {useCase.background.need}.
         </p>
       </div>
@@ -45,26 +45,26 @@ function BackgroundSection({ useCase }: { useCase: UseCase }) {
 function DurationSection({ useCase }: { useCase: UseCase }) {
   return (
     <section className="mb-8">
-      <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-gray-100">Duration</h2>
+      <h2 className="mb-4 text-xl font-semibold text-foreground dark:text-foreground">Duration</h2>
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="flex items-center gap-4 rounded-lg border bg-white p-4 shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        <div className="flex items-center gap-4 rounded-lg border bg-background p-4 shadow-sm dark:bg-background dark:border-border">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
             <Clock className="h-6 w-6 text-blue-600 dark:text-blue-400" />
           </div>
           <div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Product Hours</p>
-            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+            <p className="text-sm text-muted-foreground dark:text-muted-foreground">Product Hours</p>
+            <p className="text-2xl font-bold text-foreground dark:text-foreground">
               {useCase.duration.product}h
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-4 rounded-lg border bg-white p-4 shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        <div className="flex items-center gap-4 rounded-lg border bg-background p-4 shadow-sm dark:bg-background dark:border-border">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
             <Code className="h-6 w-6 text-green-600 dark:text-green-400" />
           </div>
           <div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Technology Hours</p>
-            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+            <p className="text-sm text-muted-foreground dark:text-muted-foreground">Technology Hours</p>
+            <p className="text-2xl font-bold text-foreground dark:text-foreground">
               {useCase.duration.technology}h
             </p>
           </div>
@@ -78,19 +78,19 @@ function DurationSection({ useCase }: { useCase: UseCase }) {
 function MarketSection({ useCase }: { useCase: UseCase }) {
   return (
     <section className="mb-8">
-      <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-gray-100">Market</h2>
+      <h2 className="mb-4 text-xl font-semibold text-foreground dark:text-foreground">Market</h2>
 
       {/* User Voices */}
       <div className="mb-6">
-        <h3 className="mb-3 text-sm font-medium text-gray-500 dark:text-gray-400">User Voices</h3>
+        <h3 className="mb-3 text-sm font-medium text-muted-foreground dark:text-muted-foreground">User Voices</h3>
         <div className="space-y-4">
           {useCase.userVoices.map((voice) => (
             <div
               key={voice.id}
-              className="relative rounded-lg border bg-white p-4 shadow-sm dark:bg-gray-800 dark:border-gray-700"
+              className="relative rounded-lg border bg-background p-4 shadow-sm dark:bg-background dark:border-border"
             >
-              <Quote className="absolute left-4 top-4 h-5 w-5 text-gray-200 dark:text-gray-700" />
-              <p className="pl-6 text-gray-700 dark:text-gray-300">{voice.quote}</p>
+              <Quote className="absolute left-4 top-4 h-5 w-5 text-muted dark:text-muted" />
+              <p className="pl-6 text-foreground dark:text-foreground">{voice.quote}</p>
               <div className="mt-4 flex items-center gap-3 pl-6">
                 <img
                   src={voice.author.avatar}
@@ -98,14 +98,14 @@ function MarketSection({ useCase }: { useCase: UseCase }) {
                   className="h-10 w-10 rounded-full"
                 />
                 <div>
-                  <p className="font-medium text-gray-900 dark:text-gray-100">{voice.author.name}</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{voice.author.role}</p>
+                  <p className="font-medium text-foreground dark:text-foreground">{voice.author.name}</p>
+                  <p className="text-sm text-muted-foreground dark:text-muted-foreground">{voice.author.role}</p>
                 </div>
                 <a
                   href={voice.author.profileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="ml-auto text-gray-400 hover:text-blue-500 dark:hover:text-blue-400"
+                  className="ml-auto text-muted-foreground hover:text-blue-500 dark:hover:text-blue-400"
                 >
                   <ExternalLink className="h-4 w-4" />
                 </a>
@@ -117,7 +117,7 @@ function MarketSection({ useCase }: { useCase: UseCase }) {
 
       {/* Typical Users */}
       <div>
-        <h3 className="mb-3 text-sm font-medium text-gray-500 dark:text-gray-400">Typical Users</h3>
+        <h3 className="mb-3 text-sm font-medium text-muted-foreground dark:text-muted-foreground">Typical Users</h3>
         <div className="flex flex-wrap gap-2">
           {useCase.userVoices.map((voice) => (
             <a
@@ -125,15 +125,15 @@ function MarketSection({ useCase }: { useCase: UseCase }) {
               href={voice.author.profileUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1.5 text-sm transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+              className="inline-flex items-center gap-2 rounded-full bg-secondary px-3 py-1.5 text-sm transition-colors hover:bg-muted dark:bg-secondary dark:hover:bg-muted"
             >
               <img
                 src={voice.author.avatar}
                 alt={voice.author.name}
                 className="h-5 w-5 rounded-full"
               />
-              <span className="text-gray-700 dark:text-gray-200">{voice.author.name}</span>
-              <ExternalLink className="h-3 w-3 text-gray-400" />
+              <span className="text-foreground dark:text-foreground">{voice.author.name}</span>
+              <ExternalLink className="h-3 w-3 text-muted-foreground" />
             </a>
           ))}
         </div>
@@ -148,8 +148,8 @@ function ProductSection({ useCase }: { useCase: UseCase }) {
 
   return (
     <section className="mb-8">
-      <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-gray-100">Product</h2>
-      <div className="flex items-center gap-6 rounded-lg border bg-white p-6 shadow-sm dark:bg-gray-800 dark:border-gray-700">
+      <h2 className="mb-4 text-xl font-semibold text-foreground dark:text-foreground">Product</h2>
+      <div className="flex items-center gap-6 rounded-lg border bg-background p-6 shadow-sm dark:bg-background dark:border-border">
         {/* Circular Progress */}
         <div className="relative">
           <svg className="h-32 w-32 -rotate-90" viewBox="0 0 100 100">
@@ -159,7 +159,7 @@ function ProductSection({ useCase }: { useCase: UseCase }) {
               r="45"
               fill="none"
               strokeWidth="8"
-              className="stroke-gray-200 dark:stroke-gray-700"
+              className="stroke-muted dark:stroke-muted"
             />
             <circle
               cx="50"
@@ -173,17 +173,17 @@ function ProductSection({ useCase }: { useCase: UseCase }) {
             />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            <span className="text-3xl font-bold text-foreground dark:text-foreground">
               {useCase.score.value}
             </span>
           </div>
         </div>
         <div>
-          <p className="text-sm text-gray-500 dark:text-gray-400">Benchmark Score</p>
-          <p className="text-lg font-medium text-gray-900 dark:text-gray-100 capitalize">
+          <p className="text-sm text-muted-foreground dark:text-muted-foreground">Benchmark Score</p>
+          <p className="text-lg font-medium text-foreground dark:text-foreground capitalize">
             {useCase.score.type}
           </p>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-1 text-sm text-muted-foreground dark:text-muted-foreground">
             Evaluated on {new Date(useCase.score.date).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
           </p>
         </div>
@@ -196,19 +196,19 @@ function ProductSection({ useCase }: { useCase: UseCase }) {
 function TechnicalSection({ useCase }: { useCase: UseCase }) {
   return (
     <section className="mb-8">
-      <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-gray-100">Technical</h2>
+      <h2 className="mb-4 text-xl font-semibold text-foreground dark:text-foreground">Technical</h2>
 
       {/* Token Count and Environment */}
       <div className="mb-6 grid gap-4 sm:grid-cols-2">
-        <div className="rounded-lg border bg-white p-4 shadow-sm dark:bg-gray-800 dark:border-gray-700">
-          <p className="mb-1 text-sm text-gray-500 dark:text-gray-400">Token Count</p>
-          <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+        <div className="rounded-lg border bg-background p-4 shadow-sm dark:bg-background dark:border-border">
+          <p className="mb-1 text-sm text-muted-foreground dark:text-muted-foreground">Token Count</p>
+          <p className="text-2xl font-bold text-foreground dark:text-foreground">
             {useCase.tech.tokens.toLocaleString()}
           </p>
         </div>
-        <div className="rounded-lg border bg-white p-4 shadow-sm dark:bg-gray-800 dark:border-gray-700">
-          <p className="mb-1 text-sm text-gray-500 dark:text-gray-400">Environment</p>
-          <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+        <div className="rounded-lg border bg-background p-4 shadow-sm dark:bg-background dark:border-border">
+          <p className="mb-1 text-sm text-muted-foreground dark:text-muted-foreground">Environment</p>
+          <p className="text-sm font-medium text-foreground dark:text-foreground">
             {useCase.tech.environment}
           </p>
         </div>
@@ -216,17 +216,17 @@ function TechnicalSection({ useCase }: { useCase: UseCase }) {
 
       {/* Metrics */}
       <div className="mb-6">
-        <h3 className="mb-3 text-sm font-medium text-gray-500 dark:text-gray-400">Metrics</h3>
+        <h3 className="mb-3 text-sm font-medium text-muted-foreground dark:text-muted-foreground">Metrics</h3>
         <div className="grid gap-3 sm:grid-cols-3">
           {Object.entries(useCase.tech.metrics).map(([key, value]) => (
             <div
               key={key}
-              className="flex items-center justify-between rounded-lg border bg-white px-4 py-3 shadow-sm dark:bg-gray-800 dark:border-gray-700"
+              className="flex items-center justify-between rounded-lg border bg-background px-4 py-3 shadow-sm dark:bg-background dark:border-border"
             >
-              <span className="text-sm text-gray-500 dark:text-gray-400 capitalize">
+              <span className="text-sm text-muted-foreground dark:text-muted-foreground capitalize">
                 {key.replace(/_/g, " ")}
               </span>
-              <span className="font-semibold text-gray-900 dark:text-gray-100">
+              <span className="font-semibold text-foreground dark:text-foreground">
                 {typeof value === "number" ? value.toFixed(1) : value}
               </span>
             </div>
@@ -236,7 +236,7 @@ function TechnicalSection({ useCase }: { useCase: UseCase }) {
 
       {/* Comments Section */}
       <div>
-        <h3 className="mb-3 flex items-center gap-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+        <h3 className="mb-3 flex items-center gap-2 text-sm font-medium text-muted-foreground dark:text-muted-foreground">
           <MessageSquare className="h-4 w-4" />
           Comments ({useCase.comments.length})
         </h3>
@@ -244,10 +244,10 @@ function TechnicalSection({ useCase }: { useCase: UseCase }) {
           {useCase.comments.map((comment) => (
             <div
               key={comment.id}
-              className="rounded-lg border bg-white p-4 shadow-sm dark:bg-gray-800 dark:border-gray-700"
+              className="rounded-lg border bg-background p-4 shadow-sm dark:bg-background dark:border-border"
             >
               <div className="flex items-start gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary dark:bg-secondary">
                   {comment.type === "voice" ? (
                     <MessageSquare className="h-4 w-4 text-blue-500" />
                   ) : (
@@ -256,7 +256,7 @@ function TechnicalSection({ useCase }: { useCase: UseCase }) {
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <p className="font-medium text-gray-900 dark:text-gray-100">{comment.author}</p>
+                    <p className="font-medium text-foreground dark:text-foreground">{comment.author}</p>
                     <span
                       className={cn(
                         "rounded px-2 py-0.5 text-xs font-medium",
@@ -268,22 +268,22 @@ function TechnicalSection({ useCase }: { useCase: UseCase }) {
                       {comment.type}
                     </span>
                   </div>
-                  <p className="mt-1 text-gray-700 dark:text-gray-300">{comment.content}</p>
+                  <p className="mt-1 text-foreground dark:text-foreground">{comment.content}</p>
                   <div className="mt-3 flex items-center gap-4">
                     <div className="flex items-center gap-1">
-                      <ThumbsUp className="h-4 w-4 text-gray-400" />
-                      <span className="text-sm text-gray-500">{comment.votes.up.length}</span>
+                      <ThumbsUp className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-sm text-muted-foreground">{comment.votes.up.length}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <ThumbsDown className="h-4 w-4 text-gray-400" />
-                      <span className="text-sm text-gray-500">{comment.votes.down.length}</span>
+                      <ThumbsDown className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-sm text-muted-foreground">{comment.votes.down.length}</span>
                     </div>
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-muted-foreground">
                       {new Date(comment.timestamp).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
                     </span>
                   </div>
                   {(comment.votes.up.length > 0 || comment.votes.down.length > 0) && (
-                    <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                    <p className="mt-2 text-xs text-muted-foreground dark:text-muted-foreground">
                       {comment.votes.up.length > 0 && (
                         <span>
                           Upvoted by:{" "}
@@ -329,7 +329,7 @@ export default function UseCaseDetailPage({
       {/* Back Link */}
       <Link
         href="/max/use-cases"
-        className="mb-6 inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+        className="mb-6 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-foreground"
       >
         <ArrowLeft className="h-4 w-4" />
         Back to Use Cases
@@ -337,12 +337,12 @@ export default function UseCaseDetailPage({
 
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{useCase.name}</h1>
+        <h1 className="text-2xl font-bold text-foreground dark:text-foreground">{useCase.name}</h1>
         <div className="mt-2 flex flex-wrap items-center gap-2">
           {useCase.domain.map((d) => (
             <span
               key={d}
-              className="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-300"
+              className="rounded-full bg-secondary px-3 py-1 text-sm font-medium text-foreground dark:bg-secondary dark:text-foreground"
             >
               {d}
             </span>

@@ -76,10 +76,10 @@ export function UseCaseFilters({
               onClick={() => setOpenDropdown(openDropdown === filterType ? null : filterType)}
               className={cn(
                 "flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition-colors",
-                "hover:bg-gray-50 dark:hover:bg-gray-800",
+                "hover:bg-muted dark:hover:bg-secondary",
                 getSelectedCount(filterType) > 0
                   ? "border-blue-500 bg-blue-50 text-blue-700 dark:border-blue-400 dark:bg-blue-900/30 dark:text-blue-300"
-                  : "border-gray-200 bg-white text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
+                  : "border-border bg-background text-foreground dark:border-border dark:bg-background dark:text-foreground"
               )}
             >
               {filterLabels[filterType]}
@@ -98,20 +98,20 @@ export function UseCaseFilters({
 
             {/* Dropdown Panel */}
             {openDropdown === filterType && (
-              <div className="absolute z-50 mt-1 w-56 rounded-lg border bg-white py-1 shadow-lg dark:bg-gray-800 dark:border-gray-700">
+              <div className="absolute z-50 mt-1 w-56 rounded-lg border bg-background py-1 shadow-lg dark:bg-background dark:border-border">
                 <div className="max-h-64 overflow-y-auto">
                   {FILTER_OPTIONS[filterType].map((option) => (
                     <label
                       key={option}
-                      className="flex cursor-pointer items-center gap-2 px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700"
+                      className="flex cursor-pointer items-center gap-2 px-3 py-2 hover:bg-muted dark:hover:bg-secondary"
                     >
                       <input
                         type="checkbox"
                         checked={selectedFilters[filterType].includes(option)}
                         onChange={() => toggleFilter(filterType, option)}
-                        className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        className="h-4 w-4 rounded border-border text-blue-600 focus:ring-blue-500"
                       />
-                      <span className="text-sm text-gray-700 dark:text-gray-200">
+                      <span className="text-sm text-foreground dark:text-foreground">
                         {option}
                       </span>
                     </label>
@@ -141,16 +141,16 @@ export function UseCaseFilters({
             selectedFilters[filterType].map((value) => (
               <span
                 key={`${filterType}-${value}`}
-                className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-300"
+                className="inline-flex items-center gap-1 rounded-full bg-secondary px-2.5 py-1 text-xs font-medium text-foreground dark:bg-secondary dark:text-foreground"
               >
-                <span className="text-gray-500 dark:text-gray-400">{filterLabels[filterType]}:</span>
+                <span className="text-muted-foreground dark:text-muted-foreground">{filterLabels[filterType]}:</span>
                 {value}
                 <button
                   onClick={(e) => {
                     e.stopPropagation()
                     toggleFilter(filterType, value)
                   }}
-                  className="ml-1 rounded-full p-0.5 hover:bg-gray-200 dark:hover:bg-gray-600"
+                  className="ml-1 rounded-full p-0.5 hover:bg-muted dark:hover:bg-secondary"
                 >
                   <X className="h-3 w-3" />
                 </button>

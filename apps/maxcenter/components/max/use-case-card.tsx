@@ -27,9 +27,9 @@ export function UseCaseCard({ useCase }: UseCaseCardProps) {
 
   return (
     <Link href={`/max/use-cases/${useCase.id}`}>
-      <article className="group relative flex h-full flex-col rounded-lg border bg-white p-4 shadow-sm transition-all hover:shadow-md dark:bg-gray-800 dark:border-gray-700">
+      <article className="group relative flex h-full flex-col rounded-lg border bg-card p-4 shadow-sm transition-all hover:shadow-md dark:bg-card dark:border-border">
         {/* Title */}
-        <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+        <h3 className="mb-2 text-lg font-semibold text-foreground dark:text-foreground group-hover:text-blue-600 dark:group-hover:text-blue-400">
           {useCase.name}
         </h3>
 
@@ -38,7 +38,7 @@ export function UseCaseCard({ useCase }: UseCaseCardProps) {
           {useCase.domain.map((d) => (
             <span
               key={d}
-              className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-300"
+              className="rounded-full bg-secondary px-2 py-0.5 text-xs font-medium text-foreground dark:bg-secondary dark:text-foreground"
             >
               {d}
             </span>
@@ -70,7 +70,7 @@ export function UseCaseCard({ useCase }: UseCaseCardProps) {
         </div>
 
         {/* Region with Flag */}
-        <div className="mb-4 flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+        <div className="mb-4 flex items-center gap-2 text-sm text-muted-foreground dark:text-muted-foreground">
           <span className="flex items-center gap-1">
             {useCase.region.map((r) => (
               <span key={r} title={r}>{regionFlags[r] || "🌍"}</span>
@@ -84,18 +84,18 @@ export function UseCaseCard({ useCase }: UseCaseCardProps) {
           <div className="mt-auto">
             <div className="flex items-center gap-2">
               <div className="flex-1">
-                <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-600">
+                <div className="h-2 w-full overflow-hidden rounded-full bg-muted dark:bg-muted">
                   <div
                     className="h-full rounded-full bg-gradient-to-r from-blue-500 to-blue-600"
                     style={{ width: `${useCase.score!.value}%` }}
                   />
                 </div>
               </div>
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <span className="text-sm font-medium text-foreground dark:text-foreground">
                 {useCase.score!.value}
               </span>
             </div>
-            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+            <p className="mt-1 text-xs text-muted-foreground dark:text-muted-foreground">
               {useCase.score!.type} • {new Date(useCase.score!.date).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
             </p>
           </div>
