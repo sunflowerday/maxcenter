@@ -49,10 +49,10 @@ export default function AgentsPage() {
     <div className="p-6 lg:p-8 max-w-7xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl font-bold text-foreground mb-2">
           AI Agent Suggestions
         </h1>
-        <p className="text-gray-500">
+        <p className="text-muted-foreground">
           Intelligent insights and recommendations powered by analysis of your product data
         </p>
       </div>
@@ -84,8 +84,8 @@ export default function AgentsPage() {
       </div>
 
       {/* Category Breakdown */}
-      <div className="bg-white rounded-xl p-4 border border-gray-200 mb-8">
-        <h3 className="text-sm font-semibold text-gray-700 mb-3">By Category</h3>
+      <div className="bg-card rounded-xl p-4 border border-border mb-8">
+        <h3 className="text-sm font-semibold text-foreground mb-3">By Category</h3>
         <div className="flex flex-wrap gap-3">
           {categories.slice(1).map((cat) => {
             const Icon = cat.icon
@@ -93,11 +93,11 @@ export default function AgentsPage() {
             return (
               <div
                 key={cat.value}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-muted border border-border"
               >
-                <Icon className="w-4 h-4 text-gray-500" />
-                <span className="text-sm font-medium text-gray-700">{cat.label}</span>
-                <span className="text-sm font-bold text-gray-900">{count}</span>
+                <Icon className="w-4 h-4 text-muted-foreground" />
+                <span className="text-sm font-medium text-foreground">{cat.label}</span>
+                <span className="text-sm font-bold text-foreground">{count}</span>
               </div>
             )
           })}
@@ -115,8 +115,8 @@ export default function AgentsPage() {
               onClick={() => setSelectedCategory(cat.value)}
               className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm transition-all ${
                 isActive
-                  ? "bg-gray-900 text-white shadow-md"
-                  : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50 hover:border-gray-300"
+                  ? "bg-primary text-primary-foreground shadow-md"
+                  : "bg-background text-muted-foreground border border-border hover:bg-muted hover:border-muted-foreground/30"
               }`}
             >
               <Icon className="w-4 h-4" />
@@ -124,7 +124,7 @@ export default function AgentsPage() {
               {cat.value !== "all" && (
                 <span
                   className={`ml-1 px-1.5 py-0.5 rounded text-xs ${
-                    isActive ? "bg-gray-700 text-gray-200" : "bg-gray-100 text-gray-500"
+                    isActive ? "bg-primary-foreground/20 text-primary-foreground" : "bg-muted text-muted-foreground"
                   }`}
                 >
                   {stats.byCategory[cat.value as Category] || 0}
@@ -144,8 +144,8 @@ export default function AgentsPage() {
 
       {filteredSuggestions.length === 0 && (
         <div className="text-center py-12">
-          <Sparkles className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-          <p className="text-gray-500">No suggestions found for this category.</p>
+          <Sparkles className="w-12 h-12 text-muted-foreground/40 mx-auto mb-4" />
+          <p className="text-muted-foreground">No suggestions found for this category.</p>
         </div>
       )}
     </div>

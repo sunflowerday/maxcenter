@@ -76,7 +76,7 @@ export function AgentCard({ suggestion }: AgentCardProps) {
 
   return (
     <div
-      className={`relative border-l-4 ${category.color} rounded-lg bg-white p-5 shadow-sm hover:shadow-md transition-shadow`}
+      className={`relative border-l-4 ${category.color} rounded-lg bg-card p-5 shadow-sm hover:shadow-md transition-shadow`}
     >
       {/* Category Badge */}
       <div className="flex items-center gap-2 mb-3">
@@ -89,21 +89,21 @@ export function AgentCard({ suggestion }: AgentCardProps) {
       </div>
 
       {/* Suggestion Content */}
-      <p className="text-base font-medium text-gray-900 mb-3 leading-relaxed">
+      <p className="text-base font-medium text-foreground mb-3 leading-relaxed">
         {suggestion.content}
       </p>
 
       {/* Confidence Score */}
       <div className="mb-4">
         <div className="flex items-center justify-between mb-1.5">
-          <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+          <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
             Confidence
           </span>
           <span className={`text-sm font-bold ${confidenceColors.text}`}>
             {suggestion.confidence}%
           </span>
         </div>
-        <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+        <div className="h-2 bg-secondary rounded-full overflow-hidden">
           <div
             className={`h-full ${confidenceColors.bar} rounded-full transition-all`}
             style={{ width: `${suggestion.confidence}%` }}
@@ -113,19 +113,19 @@ export function AgentCard({ suggestion }: AgentCardProps) {
 
       {/* Action */}
       <div className="mb-4">
-        <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+        <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
           Recommended Action
         </span>
-        <p className="text-sm text-gray-700 mt-1">{suggestion.action}</p>
+        <p className="text-sm text-muted-foreground mt-1">{suggestion.action}</p>
       </div>
 
       {/* Metadata */}
       {Object.keys(suggestion.metadata).length > 0 && (
-        <div className="flex flex-wrap gap-x-4 gap-y-1 pt-3 border-t border-gray-100">
+        <div className="flex flex-wrap gap-x-4 gap-y-1 pt-3 border-t border-border">
           {Object.entries(suggestion.metadata).map(([key, value]) => (
             <div key={key} className="flex items-center gap-1.5">
-              <span className="text-xs text-gray-400 capitalize">{key}:</span>
-              <span className="text-xs text-gray-600 font-medium">{value}</span>
+              <span className="text-xs text-muted-foreground/60 capitalize">{key}:</span>
+              <span className="text-xs text-muted-foreground font-medium">{value}</span>
             </div>
           ))}
         </div>
