@@ -17,14 +17,14 @@ export function Sidebar({ children }: SidebarProps) {
   return (
     <aside
       className={cn(
-        "flex flex-col border-r bg-white dark:bg-gray-900 transition-all duration-300",
+        "flex flex-col border-r bg-background dark:bg-background transition-all duration-300",
         collapsed ? "w-[60px]" : "w-[240px]"
       )}
     >
       {/* Header */}
       <div className="flex items-center justify-between border-b px-3 py-4">
         {!collapsed && (
-          <span className="text-lg font-semibold truncate text-gray-900 dark:text-gray-100">
+          <span className="text-lg font-semibold truncate text-foreground dark:text-foreground">
             MaxCenter
           </span>
         )}
@@ -32,8 +32,8 @@ export function Sidebar({ children }: SidebarProps) {
           onClick={() => setCollapsed(!collapsed)}
           className={cn(
             "flex h-8 w-8 items-center justify-center rounded-lg",
-            "hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-100",
-            "text-gray-500 dark:text-gray-400 transition-colors",
+            "hover:bg-muted hover:text-foreground dark:hover:bg-primary dark:hover:text-foreground",
+            "text-muted-foreground dark:text-muted-foreground transition-colors",
             !collapsed && "ml-auto"
           )}
           aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
