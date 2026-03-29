@@ -10,27 +10,27 @@ function StatsBar({ humans }: { humans: Human[] }) {
   const offline = humans.filter((h) => h.status === "offline").length
 
   return (
-    <div className="flex flex-wrap gap-4 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+    <div className="flex flex-wrap gap-4 p-4 bg-muted dark:bg-gray-800/50 rounded-lg border border-border dark:border-gray-700">
       <div className="flex items-center gap-2">
         <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
-        <span className="text-sm text-gray-600 dark:text-gray-300">
-          <span className="font-semibold text-gray-900 dark:text-gray-100">{online}</span> online
+        <span className="text-sm text-muted-foreground dark:text-gray-300">
+          <span className="font-semibold text-foreground dark:text-gray-100">{online}</span> online
         </span>
       </div>
       <div className="flex items-center gap-2">
         <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
-        <span className="text-sm text-gray-600 dark:text-gray-300">
-          <span className="font-semibold text-gray-900 dark:text-gray-100">{idle}</span> idle
+        <span className="text-sm text-muted-foreground dark:text-gray-300">
+          <span className="font-semibold text-foreground dark:text-gray-100">{idle}</span> idle
         </span>
       </div>
       <div className="flex items-center gap-2">
         <div className="w-2.5 h-2.5 rounded-full bg-gray-400" />
-        <span className="text-sm text-gray-600 dark:text-gray-300">
-          <span className="font-semibold text-gray-900 dark:text-gray-100">{offline}</span> offline
+        <span className="text-sm text-muted-foreground dark:text-gray-300">
+          <span className="font-semibold text-foreground dark:text-gray-100">{offline}</span> offline
         </span>
       </div>
       <div className="flex-1" />
-      <span className="text-sm text-gray-500 dark:text-gray-400">
+      <span className="text-sm text-muted-foreground dark:text-gray-400">
         {humans.length} team members
       </span>
     </div>
@@ -46,10 +46,10 @@ export default function HumansPage() {
           <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+          <h1 className="text-2xl font-bold text-foreground dark:text-gray-100">
             Team Members
           </h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-muted-foreground dark:text-gray-400">
             Monitor your team&apos;s activity and availability
           </p>
         </div>
