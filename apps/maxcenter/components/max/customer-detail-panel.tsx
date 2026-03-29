@@ -38,7 +38,7 @@ export function CustomerDetailPanel({
   if (!customer) {
     return (
       <div className="h-full flex items-center justify-center p-6">
-        <p className="text-gray-500 dark:text-gray-400 text-sm">
+        <p className="text-muted-foreground dark:text-muted-foreground text-sm">
           Select a customer to view details
         </p>
       </div>
@@ -46,15 +46,15 @@ export function CustomerDetailPanel({
   }
 
   return (
-    <div className="h-full flex flex-col bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-800">
+    <div className="h-full flex flex-col bg-background dark:bg-background border-l border-border dark:border-border">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+      <div className="flex items-center justify-between p-4 border-b border-border dark:border-border">
+        <h2 className="text-lg font-semibold text-foreground dark:text-foreground">
           Customer Details
         </h2>
         <button
           onClick={onClose}
-          className="p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400"
+          className="p-1 rounded-lg hover:bg-secondary dark:hover:bg-secondary text-muted-foreground dark:text-muted-foreground"
           aria-label="Close panel"
         >
           <X className="h-5 w-5" />
@@ -68,13 +68,13 @@ export function CustomerDetailPanel({
           <img
             src={customer.avatar}
             alt={customer.name}
-            className="h-16 w-16 rounded-full bg-gray-200 dark:bg-gray-700"
+            className="h-16 w-16 rounded-full bg-muted dark:bg-muted"
           />
           <div>
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+            <h3 className="text-xl font-semibold text-foreground dark:text-foreground">
               {customer.name}
             </h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-muted-foreground dark:text-muted-foreground">
               Cluster {customer.clusterId}
             </p>
           </div>
@@ -82,7 +82,7 @@ export function CustomerDetailPanel({
 
         {/* Profile Badges */}
         <div>
-          <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <h4 className="text-sm font-medium text-foreground dark:text-foreground mb-2">
             Profiles
           </h4>
           <div className="flex flex-wrap gap-2">
@@ -96,14 +96,14 @@ export function CustomerDetailPanel({
 
         {/* Cluster Assignment */}
         <div>
-          <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <h4 className="text-sm font-medium text-foreground dark:text-foreground mb-2">
             Cluster Assignment
           </h4>
-          <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-            <p className="text-sm text-gray-900 dark:text-gray-100">
+          <div className="p-3 bg-muted dark:bg-muted rounded-lg">
+            <p className="text-sm text-foreground dark:text-foreground">
               Cluster {customer.clusterId}
             </p>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+            <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
               {customer.clusterId === 0 && "Finance & FinTech companies"}
               {customer.clusterId === 1 && "Healthcare & Medical organizations"}
               {customer.clusterId === 2 && "Education & Learning platforms"}
@@ -114,11 +114,11 @@ export function CustomerDetailPanel({
 
         {/* Typical Use Cases */}
         <div>
-          <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <h4 className="text-sm font-medium text-foreground dark:text-foreground mb-2">
             Typical Use Cases
           </h4>
-          <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-            <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+          <div className="p-3 bg-muted dark:bg-muted rounded-lg">
+            <p className="text-sm font-medium text-foreground dark:text-foreground">
               {customer.typicalUseCases.length} use case
               {customer.typicalUseCases.length !== 1 ? "s" : ""}
             </p>
@@ -126,7 +126,7 @@ export function CustomerDetailPanel({
               {customer.typicalUseCases.map((uc) => (
                 <li
                   key={uc}
-                  className="text-xs text-gray-600 dark:text-gray-400"
+                  className="text-xs text-muted-foreground dark:text-muted-foreground"
                 >
                   {uc}
                 </li>
@@ -137,7 +137,7 @@ export function CustomerDetailPanel({
 
         {/* Tags */}
         <div>
-          <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <h4 className="text-sm font-medium text-foreground dark:text-foreground mb-2">
             Tags
           </h4>
           <div className="flex flex-wrap gap-2">

@@ -42,11 +42,11 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
   if (active && payload && payload.length) {
     const customer = payload[0].payload
     return (
-      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg px-3 py-2">
-        <p className="font-medium text-gray-900 dark:text-gray-100">
+      <div className="bg-background dark:bg-card border border-border dark:border-border rounded-lg shadow-lg px-3 py-2">
+        <p className="font-medium text-foreground dark:text-foreground">
           {customer.name}
         </p>
-        <p className="text-xs text-gray-500 dark:text-gray-400">
+        <p className="text-xs text-muted-foreground dark:text-muted-foreground">
           Cluster {customer.clusterId}
         </p>
       </div>
@@ -90,7 +90,7 @@ export function CustomerScatter({
             verticalAlign="top"
             height={36}
             formatter={(value) => (
-              <span className="text-sm text-gray-700 dark:text-gray-300">
+              <span className="text-sm text-foreground dark:text-foreground">
                 {value}
               </span>
             )}
