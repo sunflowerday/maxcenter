@@ -1129,6 +1129,411 @@ export const humans: Human[] = [
 ]
 
 // Agent Suggestions
+// Benchmark Data
+export interface BenchmarkTask {
+  id: string
+  name: string
+  domain: string
+  scores: {
+    architecture: string
+    score: number
+  }[]
+}
+
+export interface ArchitectureScore {
+  architecture: string
+  overallScore: number
+  domains: {
+    [domain: string]: number
+  }
+}
+
+export interface BenchmarkRun {
+  id: string
+  name: string
+  date: string
+  tasks: BenchmarkTask[]
+  architectures: ArchitectureScore[]
+}
+
+export const benchmarkRuns: BenchmarkRun[] = [
+  {
+    id: 'run-001',
+    name: 'Q1 2026 Benchmark',
+    date: '2026-03-15',
+    tasks: [
+      {
+        id: 'task-001',
+        name: 'Code Generation',
+        domain: 'Coding',
+        scores: [
+          { architecture: 'Claude 4', score: 92 },
+          { architecture: 'GPT-5', score: 89 },
+          { architecture: 'Gemini Ultra', score: 87 }
+        ]
+      },
+      {
+        id: 'task-002',
+        name: 'Math Reasoning',
+        domain: 'Analysis',
+        scores: [
+          { architecture: 'Claude 4', score: 88 },
+          { architecture: 'GPT-5', score: 91 },
+          { architecture: 'Gemini Ultra', score: 85 }
+        ]
+      },
+      {
+        id: 'task-003',
+        name: 'Creative Writing',
+        domain: 'Writing',
+        scores: [
+          { architecture: 'Claude 4', score: 95 },
+          { architecture: 'GPT-5', score: 93 },
+          { architecture: 'Gemini Ultra', score: 90 }
+        ]
+      },
+      {
+        id: 'task-004',
+        name: 'Medical Diagnosis',
+        domain: 'Healthcare',
+        scores: [
+          { architecture: 'Claude 4', score: 87 },
+          { architecture: 'GPT-5', score: 85 },
+          { architecture: 'Gemini Ultra', score: 92 }
+        ]
+      },
+      {
+        id: 'task-005',
+        name: 'Financial Analysis',
+        domain: 'Finance',
+        scores: [
+          { architecture: 'Claude 4', score: 90 },
+          { architecture: 'GPT-5', score: 88 },
+          { architecture: 'Gemini Ultra', score: 86 }
+        ]
+      },
+      {
+        id: 'task-006',
+        name: 'Legal Document Review',
+        domain: 'Legal',
+        scores: [
+          { architecture: 'Claude 4', score: 86 },
+          { architecture: 'GPT-5', score: 90 },
+          { architecture: 'Gemini Ultra', score: 83 }
+        ]
+      },
+      {
+        id: 'task-007',
+        name: 'Code Debugging',
+        domain: 'Coding',
+        scores: [
+          { architecture: 'Claude 4', score: 94 },
+          { architecture: 'GPT-5', score: 91 },
+          { architecture: 'Gemini Ultra', score: 88 }
+        ]
+      },
+      {
+        id: 'task-008',
+        name: 'Data Analysis',
+        domain: 'Analysis',
+        scores: [
+          { architecture: 'Claude 4', score: 89 },
+          { architecture: 'GPT-5', score: 87 },
+          { architecture: 'Gemini Ultra', score: 91 }
+        ]
+      }
+    ],
+    architectures: [
+      {
+        architecture: 'Claude 4',
+        overallScore: 90.1,
+        domains: {
+          Coding: 93,
+          Analysis: 88.5,
+          Writing: 95,
+          Healthcare: 87,
+          Finance: 90,
+          Legal: 86
+        }
+      },
+      {
+        architecture: 'GPT-5',
+        overallScore: 89.0,
+        domains: {
+          Coding: 90,
+          Analysis: 89,
+          Writing: 93,
+          Healthcare: 85,
+          Finance: 88,
+          Legal: 90
+        }
+      },
+      {
+        architecture: 'Gemini Ultra',
+        overallScore: 87.8,
+        domains: {
+          Coding: 87.5,
+          Analysis: 88,
+          Writing: 90,
+          Healthcare: 92,
+          Finance: 86,
+          Legal: 83
+        }
+      }
+    ]
+  },
+  {
+    id: 'run-002',
+    name: 'Q4 2025 Benchmark',
+    date: '2025-12-10',
+    tasks: [
+      {
+        id: 'task-001',
+        name: 'Code Generation',
+        domain: 'Coding',
+        scores: [
+          { architecture: 'Claude 4', score: 88 },
+          { architecture: 'GPT-5', score: 85 },
+          { architecture: 'Gemini Ultra', score: 82 }
+        ]
+      },
+      {
+        id: 'task-002',
+        name: 'Math Reasoning',
+        domain: 'Analysis',
+        scores: [
+          { architecture: 'Claude 4', score: 84 },
+          { architecture: 'GPT-5', score: 87 },
+          { architecture: 'Gemini Ultra', score: 80 }
+        ]
+      },
+      {
+        id: 'task-003',
+        name: 'Creative Writing',
+        domain: 'Writing',
+        scores: [
+          { architecture: 'Claude 4', score: 92 },
+          { architecture: 'GPT-5', score: 90 },
+          { architecture: 'Gemini Ultra', score: 86 }
+        ]
+      },
+      {
+        id: 'task-004',
+        name: 'Medical Diagnosis',
+        domain: 'Healthcare',
+        scores: [
+          { architecture: 'Claude 4', score: 82 },
+          { architecture: 'GPT-5', score: 80 },
+          { architecture: 'Gemini Ultra', score: 88 }
+        ]
+      },
+      {
+        id: 'task-005',
+        name: 'Financial Analysis',
+        domain: 'Finance',
+        scores: [
+          { architecture: 'Claude 4', score: 86 },
+          { architecture: 'GPT-5', score: 84 },
+          { architecture: 'Gemini Ultra', score: 82 }
+        ]
+      },
+      {
+        id: 'task-006',
+        name: 'Legal Document Review',
+        domain: 'Legal',
+        scores: [
+          { architecture: 'Claude 4', score: 82 },
+          { architecture: 'GPT-5', score: 86 },
+          { architecture: 'Gemini Ultra', score: 78 }
+        ]
+      },
+      {
+        id: 'task-007',
+        name: 'Code Debugging',
+        domain: 'Coding',
+        scores: [
+          { architecture: 'Claude 4', score: 90 },
+          { architecture: 'GPT-5', score: 87 },
+          { architecture: 'Gemini Ultra', score: 84 }
+        ]
+      },
+      {
+        id: 'task-008',
+        name: 'Data Analysis',
+        domain: 'Analysis',
+        scores: [
+          { architecture: 'Claude 4', score: 85 },
+          { architecture: 'GPT-5', score: 83 },
+          { architecture: 'Gemini Ultra', score: 87 }
+        ]
+      }
+    ],
+    architectures: [
+      {
+        architecture: 'Claude 4',
+        overallScore: 86.1,
+        domains: {
+          Coding: 89,
+          Analysis: 84.5,
+          Writing: 92,
+          Healthcare: 82,
+          Finance: 86,
+          Legal: 82
+        }
+      },
+      {
+        architecture: 'GPT-5',
+        overallScore: 84.6,
+        domains: {
+          Coding: 86,
+          Analysis: 85,
+          Writing: 90,
+          Healthcare: 80,
+          Finance: 84,
+          Legal: 86
+        }
+      },
+      {
+        architecture: 'Gemini Ultra',
+        overallScore: 83.4,
+        domains: {
+          Coding: 83,
+          Analysis: 83.5,
+          Writing: 86,
+          Healthcare: 88,
+          Finance: 82,
+          Legal: 78
+        }
+      }
+    ]
+  },
+  {
+    id: 'run-003',
+    name: 'Q2 2025 Benchmark',
+    date: '2025-06-20',
+    tasks: [
+      {
+        id: 'task-001',
+        name: 'Code Generation',
+        domain: 'Coding',
+        scores: [
+          { architecture: 'Claude 4', score: 82 },
+          { architecture: 'GPT-5', score: 79 },
+          { architecture: 'Gemini Ultra', score: 75 }
+        ]
+      },
+      {
+        id: 'task-002',
+        name: 'Math Reasoning',
+        domain: 'Analysis',
+        scores: [
+          { architecture: 'Claude 4', score: 78 },
+          { architecture: 'GPT-5', score: 81 },
+          { architecture: 'Gemini Ultra', score: 73 }
+        ]
+      },
+      {
+        id: 'task-003',
+        name: 'Creative Writing',
+        domain: 'Writing',
+        scores: [
+          { architecture: 'Claude 4', score: 88 },
+          { architecture: 'GPT-5', score: 86 },
+          { architecture: 'Gemini Ultra', score: 81 }
+        ]
+      },
+      {
+        id: 'task-004',
+        name: 'Medical Diagnosis',
+        domain: 'Healthcare',
+        scores: [
+          { architecture: 'Claude 4', score: 76 },
+          { architecture: 'GPT-5', score: 74 },
+          { architecture: 'Gemini Ultra', score: 83 }
+        ]
+      },
+      {
+        id: 'task-005',
+        name: 'Financial Analysis',
+        domain: 'Finance',
+        scores: [
+          { architecture: 'Claude 4', score: 81 },
+          { architecture: 'GPT-5', score: 79 },
+          { architecture: 'Gemini Ultra', score: 77 }
+        ]
+      },
+      {
+        id: 'task-006',
+        name: 'Legal Document Review',
+        domain: 'Legal',
+        scores: [
+          { architecture: 'Claude 4', score: 77 },
+          { architecture: 'GPT-5', score: 81 },
+          { architecture: 'Gemini Ultra', score: 72 }
+        ]
+      },
+      {
+        id: 'task-007',
+        name: 'Code Debugging',
+        domain: 'Coding',
+        scores: [
+          { architecture: 'Claude 4', score: 85 },
+          { architecture: 'GPT-5', score: 82 },
+          { architecture: 'Gemini Ultra', score: 79 }
+        ]
+      },
+      {
+        id: 'task-008',
+        name: 'Data Analysis',
+        domain: 'Analysis',
+        scores: [
+          { architecture: 'Claude 4', score: 80 },
+          { architecture: 'GPT-5', score: 78 },
+          { architecture: 'Gemini Ultra', score: 82 }
+        ]
+      }
+    ],
+    architectures: [
+      {
+        architecture: 'Claude 4',
+        overallScore: 80.9,
+        domains: {
+          Coding: 83.5,
+          Analysis: 79,
+          Writing: 88,
+          Healthcare: 76,
+          Finance: 81,
+          Legal: 77
+        }
+      },
+      {
+        architecture: 'GPT-5',
+        overallScore: 80.0,
+        domains: {
+          Coding: 80.5,
+          Analysis: 79.5,
+          Writing: 86,
+          Healthcare: 74,
+          Finance: 79,
+          Legal: 81
+        }
+      },
+      {
+        architecture: 'Gemini Ultra',
+        overallScore: 77.8,
+        domains: {
+          Coding: 77,
+          Analysis: 77.5,
+          Writing: 81,
+          Healthcare: 83,
+          Finance: 77,
+          Legal: 72
+        }
+      }
+    ]
+  }
+]
+
 export const agentSuggestions: AgentSuggestion[] = [
   {
     id: 'agt-001',
