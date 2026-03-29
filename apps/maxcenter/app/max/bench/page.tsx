@@ -59,8 +59,8 @@ export default function BenchPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Maxbench</h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          <h1 className="text-2xl font-bold text-foreground">Maxbench</h1>
+          <p className="text-sm text-muted-foreground mt-1">
             Benchmark results across different model architectures
           </p>
         </div>
@@ -71,9 +71,9 @@ export default function BenchPage() {
             onClick={() => setDropdownOpen(!dropdownOpen)}
             className={cn(
               "flex items-center gap-2 px-4 py-2 rounded-lg border",
-              "bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800",
-              "text-gray-900 dark:text-gray-100",
-              "hover:bg-gray-50 dark:hover:bg-gray-800",
+              "bg-background border-border",
+              "text-foreground",
+              "hover:bg-muted",
               "transition-colors"
             )}
           >
@@ -84,7 +84,7 @@ export default function BenchPage() {
           {dropdownOpen && (
             <div className={cn(
               "absolute right-0 mt-2 w-64 rounded-lg border",
-              "bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800",
+              "bg-background border-border",
               "shadow-lg z-50"
             )}>
               {benchmarkRuns.map(run => (
@@ -96,15 +96,15 @@ export default function BenchPage() {
                   }}
                   className={cn(
                     "w-full px-4 py-3 text-left",
-                    "hover:bg-gray-50 dark:hover:bg-gray-800",
+                    "hover:bg-muted",
                     "first:rounded-t-lg last:rounded-b-lg",
-                    run.id === selectedRunId && "bg-gray-50 dark:bg-gray-800"
+                    run.id === selectedRunId && "bg-muted"
                   )}
                 >
-                  <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                  <div className="text-sm font-medium text-foreground">
                     {run.name}
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                  <div className="text-xs text-muted-foreground">
                     {run.date} - {run.tasks.length} tasks
                   </div>
                 </button>
@@ -115,7 +115,7 @@ export default function BenchPage() {
       </div>
 
       {/* Tab Navigation */}
-      <div className="flex gap-2 border-b border-gray-200 dark:border-gray-800 pb-2">
+      <div className="flex gap-2 border-b border-border pb-2">
         {tabs.map(tab => (
           <button
             key={tab.id}
@@ -123,8 +123,8 @@ export default function BenchPage() {
             className={cn(
               "flex items-center gap-2 px-4 py-2 rounded-t-lg text-sm font-medium transition-colors",
               activeTab === tab.id
-                ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                ? "bg-secondary text-foreground"
+                : "text-muted-foreground hover:text-foreground"
             )}
           >
             {tab.icon}
@@ -157,7 +157,7 @@ export default function BenchPage() {
                 <div
                   key={arch.architecture}
                   className={cn(
-                    "bg-white dark:bg-gray-900 rounded-lg border p-4",
+                    "bg-background rounded-lg border p-4",
                     idx === 0 ? "border-purple-500 dark:border-purple-500" :
                     idx === 1 ? "border-blue-500 dark:border-blue-500" :
                     "border-amber-500 dark:border-amber-500"
@@ -168,19 +168,19 @@ export default function BenchPage() {
                       "w-3 h-3 rounded-full",
                       idx === 0 ? "bg-purple-500" : idx === 1 ? "bg-blue-500" : "bg-amber-500"
                     )} />
-                    <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                    <h3 className="font-semibold text-foreground">
                       {arch.architecture}
                     </h3>
                   </div>
-                  <div className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+                  <div className="text-3xl font-bold text-foreground">
                     {arch.overallScore.toFixed(1)}
                   </div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">Overall Score</div>
+                  <div className="text-sm text-muted-foreground">Overall Score</div>
                   <div className="mt-4 space-y-1">
                     {Object.entries(arch.domains).map(([domain, score]) => (
                       <div key={domain} className="flex justify-between text-sm">
-                        <span className="text-gray-600 dark:text-gray-400">{domain}</span>
-                        <span className="font-medium text-gray-900 dark:text-gray-100">{score}</span>
+                        <span className="text-muted-foreground">{domain}</span>
+                        <span className="font-medium text-foreground">{score}</span>
                       </div>
                     ))}
                   </div>
@@ -207,8 +207,8 @@ export default function BenchPage() {
             />
 
             {/* Model Rankings */}
-            <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-4">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+            <div className="bg-background rounded-lg border border-border p-4">
+              <h3 className="text-lg font-semibold text-foreground mb-4">
                 Model Rankings
               </h3>
               <div className="space-y-3">
@@ -217,7 +217,7 @@ export default function BenchPage() {
                   .map((arch, idx) => (
                     <div
                       key={arch.architecture}
-                      className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800"
+                      className="flex items-center justify-between p-3 rounded-lg bg-muted"
                     >
                       <div className="flex items-center gap-3">
                         <div className={cn(
@@ -229,15 +229,15 @@ export default function BenchPage() {
                           #{idx + 1}
                         </div>
                         <div>
-                          <div className="font-medium text-gray-900 dark:text-gray-100">
+                          <div className="font-medium text-foreground">
                             {arch.architecture}
                           </div>
-                          <div className="text-sm text-gray-500 dark:text-gray-400">
+                          <div className="text-sm text-muted-foreground">
                             {Object.keys(arch.domains).length} domains evaluated
                           </div>
                         </div>
                       </div>
-                      <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                      <div className="text-2xl font-bold text-foreground">
                         {arch.overallScore.toFixed(1)}
                       </div>
                     </div>
@@ -248,41 +248,41 @@ export default function BenchPage() {
         )}
 
         {activeTab === "dataset" && (
-          <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 overflow-hidden">
+          <div className="bg-background rounded-lg border border-border overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800">
-                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                  <tr className="border-b border-border bg-muted">
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                       Task Name
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                       Domain
                     </th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="px-4 py-3 text-right text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                       Claude 4
                     </th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="px-4 py-3 text-right text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                       GPT-5
                     </th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="px-4 py-3 text-right text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                       Gemini Ultra
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
+                <tbody className="divide-y divide-border">
                   {selectedRun.tasks.map(task => {
                     const claudeScore = task.scores.find(s => s.architecture === "Claude 4")?.score || 0
                     const gptScore = task.scores.find(s => s.architecture === "GPT-5")?.score || 0
                     const geminiScore = task.scores.find(s => s.architecture === "Gemini Ultra")?.score || 0
 
                     return (
-                      <tr key={task.id} className="hover:bg-gray-50 dark:hover:bg-gray-800">
-                        <td className="px-4 py-3 text-sm font-medium text-gray-900 dark:text-gray-100">
+                      <tr key={task.id} className="hover:bg-muted">
+                        <td className="px-4 py-3 text-sm font-medium text-foreground">
                           {task.name}
                         </td>
-                        <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
-                          <span className="px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-xs">
+                        <td className="px-4 py-3 text-sm text-muted-foreground">
+                          <span className="px-2 py-1 rounded-full bg-secondary text-xs">
                             {task.domain}
                           </span>
                         </td>
@@ -291,7 +291,7 @@ export default function BenchPage() {
                             "text-sm font-medium",
                             claudeScore >= 90 ? "text-green-600 dark:text-green-400" :
                             claudeScore >= 85 ? "text-blue-600 dark:text-blue-400" :
-                            "text-gray-900 dark:text-gray-100"
+                            "text-foreground"
                           )}>
                             {claudeScore}
                           </span>
@@ -301,7 +301,7 @@ export default function BenchPage() {
                             "text-sm font-medium",
                             gptScore >= 90 ? "text-green-600 dark:text-green-400" :
                             gptScore >= 85 ? "text-blue-600 dark:text-blue-400" :
-                            "text-gray-900 dark:text-gray-100"
+                            "text-foreground"
                           )}>
                             {gptScore}
                           </span>
@@ -311,7 +311,7 @@ export default function BenchPage() {
                             "text-sm font-medium",
                             geminiScore >= 90 ? "text-green-600 dark:text-green-400" :
                             geminiScore >= 85 ? "text-blue-600 dark:text-blue-400" :
-                            "text-gray-900 dark:text-gray-100"
+                            "text-foreground"
                           )}>
                             {geminiScore}
                           </span>
@@ -324,12 +324,12 @@ export default function BenchPage() {
             </div>
 
             {/* Summary Footer */}
-            <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800">
+            <div className="px-4 py-3 border-t border-border bg-muted">
               <div className="flex justify-between text-sm">
-                <span className="text-gray-600 dark:text-gray-400">
+                <span className="text-muted-foreground">
                   Total Tasks: {selectedRun.tasks.length}
                 </span>
-                <span className="text-gray-600 dark:text-gray-400">
+                <span className="text-muted-foreground">
                   Average across architectures: {
                     (selectedRun.architectures.reduce((sum, a) => sum + a.overallScore, 0) / selectedRun.architectures.length).toFixed(1)
                   }

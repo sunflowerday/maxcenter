@@ -127,8 +127,8 @@ export function BenchChart({ data, type, title }: BenchChartProps) {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-4">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+    <div className="bg-background rounded-lg border border-border p-4">
+      <h3 className="text-lg font-semibold text-foreground mb-4">
         {title}
       </h3>
       <ResponsiveContainer width="100%" height={300}>
