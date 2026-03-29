@@ -96,7 +96,7 @@ export function UseCaseCard({ useCase }: UseCaseCardProps) {
               </span>
             </div>
             <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-              {useCase.score!.type} • {new Date(useCase.score!.date).toLocaleDateString()}
+              {useCase.score!.type} • {new Date(useCase.score!.date).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
             </p>
           </div>
         )}

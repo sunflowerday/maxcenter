@@ -184,7 +184,7 @@ function ProductSection({ useCase }: { useCase: UseCase }) {
             {useCase.score.type}
           </p>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            Evaluated on {new Date(useCase.score.date).toLocaleDateString()}
+            Evaluated on {new Date(useCase.score.date).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
           </p>
         </div>
       </div>
@@ -279,7 +279,7 @@ function TechnicalSection({ useCase }: { useCase: UseCase }) {
                       <span className="text-sm text-gray-500">{comment.votes.down.length}</span>
                     </div>
                     <span className="text-xs text-gray-400">
-                      {new Date(comment.timestamp).toLocaleDateString()}
+                      {new Date(comment.timestamp).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
                     </span>
                   </div>
                   {(comment.votes.up.length > 0 || comment.votes.down.length > 0) && (
