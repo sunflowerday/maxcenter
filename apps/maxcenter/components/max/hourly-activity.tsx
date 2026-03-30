@@ -17,9 +17,9 @@ export function HourlyActivity({ activities }: HourlyActivityProps) {
           <span className="text-xs font-medium text-muted-foreground mb-1">
             {item.hour}:00
           </span>
-          <div className="w-2 h-2 rounded-full bg-muted-foreground dark:bg-gray-600" />
+          <div className="w-2 h-2 rounded-full bg-muted-foreground" />
           <div className="mt-2 text-center max-w-[5rem]">
-            <p className="text-xs text-muted-foreground dark:text-gray-300 leading-tight truncate">
+            <p className="text-xs text-muted-foreground leading-tight truncate">
               {item.activity}
             </p>
           </div>

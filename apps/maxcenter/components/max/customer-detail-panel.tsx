@@ -25,10 +25,10 @@ function Badge({
   const baseClasses =
     "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
   const variantClasses = {
-    default: "bg-secondary text-secondary-foreground dark:bg-secondary dark:text-secondary-foreground",
-    primary: "bg-blue-50 text-blue-700 dark:bg-blue-950/30 dark:text-blue-400",
+    default: "bg-secondary text-secondary-foreground",
+    primary: "bg-blue-50 text-blue-700",
     secondary:
-      "bg-purple-50 text-purple-700 dark:bg-purple-950/30 dark:text-purple-400",
+      "bg-purple-50 text-purple-700",
   }
 
   return (
@@ -45,7 +45,7 @@ export function CustomerDetailPanel({
   if (!customer) {
     return (
       <div className="h-full flex items-center justify-center p-6">
-        <p className="text-muted-foreground dark:text-muted-foreground text-sm">
+        <p className="text-muted-foreground text-sm">
           Select a customer to view details
         </p>
       </div>
@@ -53,15 +53,15 @@ export function CustomerDetailPanel({
   }
 
   return (
-    <div className="h-full flex flex-col bg-background dark:bg-background border-l border-border dark:border-border">
+    <div className="h-full flex flex-col bg-white border-l border-border">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-border dark:border-border">
-        <h2 className="text-lg font-semibold text-foreground dark:text-foreground">
+      <div className="flex items-center justify-between p-4 border-b border-border">
+        <h2 className="text-lg font-semibold text-foreground">
           Customer Details
         </h2>
         <button
           onClick={onClose}
-          className="p-1 rounded-lg hover:bg-secondary dark:hover:bg-secondary text-muted-foreground dark:text-muted-foreground"
+          className="p-1 rounded-lg hover:bg-secondary text-muted-foreground"
           aria-label="Close panel"
         >
           <X className="h-5 w-5" />
@@ -75,13 +75,13 @@ export function CustomerDetailPanel({
           <img
             src={customer.avatar}
             alt={customer.name}
-            className="h-16 w-16 rounded-full bg-muted dark:bg-muted"
+            className="h-16 w-16 rounded-full bg-muted"
           />
           <div>
-            <h3 className="text-xl font-semibold text-foreground dark:text-foreground">
+            <h3 className="text-xl font-semibold text-foreground">
               {customer.name}
             </h3>
-            <p className="text-sm text-muted-foreground dark:text-muted-foreground">
+            <p className="text-sm text-muted-foreground">
               Cluster {customer.clusterId}
             </p>
           </div>
@@ -89,7 +89,7 @@ export function CustomerDetailPanel({
 
         {/* Profile Badges */}
         <div>
-          <h4 className="text-sm font-medium text-foreground dark:text-foreground mb-2">
+          <h4 className="text-sm font-medium text-foreground mb-2">
             Profiles
           </h4>
           <div className="flex flex-wrap gap-2">
@@ -103,14 +103,14 @@ export function CustomerDetailPanel({
 
         {/* Cluster Assignment */}
         <div>
-          <h4 className="text-sm font-medium text-foreground dark:text-foreground mb-2">
+          <h4 className="text-sm font-medium text-foreground mb-2">
             Cluster Assignment
           </h4>
-          <div className="p-3 bg-muted dark:bg-muted rounded-lg">
-            <p className="text-sm text-foreground dark:text-foreground">
+          <div className="p-3 bg-muted rounded-lg">
+            <p className="text-sm text-foreground">
               Cluster {customer.clusterId}
             </p>
-            <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
+            <p className="text-xs text-muted-foreground mt-1">
               {CLUSTER_LABELS[customer.clusterId]}
             </p>
           </div>
@@ -118,11 +118,11 @@ export function CustomerDetailPanel({
 
         {/* Typical Use Cases */}
         <div>
-          <h4 className="text-sm font-medium text-foreground dark:text-foreground mb-2">
+          <h4 className="text-sm font-medium text-foreground mb-2">
             Typical Use Cases
           </h4>
-          <div className="p-3 bg-muted dark:bg-muted rounded-lg">
-            <p className="text-sm font-medium text-foreground dark:text-foreground">
+          <div className="p-3 bg-muted rounded-lg">
+            <p className="text-sm font-medium text-foreground">
               {customer.typicalUseCases.length} use case
               {customer.typicalUseCases.length !== 1 ? "s" : ""}
             </p>
@@ -130,7 +130,7 @@ export function CustomerDetailPanel({
               {customer.typicalUseCases.map((uc) => (
                 <li
                   key={uc}
-                  className="text-xs text-muted-foreground dark:text-muted-foreground"
+                  className="text-xs text-muted-foreground"
                 >
                   {uc}
                 </li>
@@ -141,7 +141,7 @@ export function CustomerDetailPanel({
 
         {/* Tags */}
         <div>
-          <h4 className="text-sm font-medium text-foreground dark:text-foreground mb-2">
+          <h4 className="text-sm font-medium text-foreground mb-2">
             Tags
           </h4>
           <div className="flex flex-wrap gap-2">

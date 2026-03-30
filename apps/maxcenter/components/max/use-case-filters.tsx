@@ -77,11 +77,11 @@ export function UseCaseFilters({
               aria-expanded={openDropdown === filterType}
               aria-haspopup="listbox"
               className={cn(
-                "flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition-colors",
-                "hover:bg-muted dark:hover:bg-secondary",
+                "flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm font-medium transition-colors bg-white",
+                "hover:bg-muted",
                 getSelectedCount(filterType) > 0
-                  ? "border-blue-500 bg-blue-50 text-blue-700 dark:border-blue-400 dark:bg-blue-900/30 dark:text-blue-300"
-                  : "border-border bg-background text-foreground dark:border-border dark:bg-background dark:text-foreground"
+                  ? "border-blue-500 bg-blue-50 text-blue-700"
+                  : "border-border text-foreground"
               )}
             >
               {filterLabels[filterType]}
@@ -103,12 +103,12 @@ export function UseCaseFilters({
               <div
                 id={`${filterType}-dropdown`}
                 role="listbox"
-                className="absolute z-50 mt-1 w-56 rounded-lg border bg-background py-1 shadow-lg dark:bg-background dark:border-border">
+                className="absolute z-50 mt-1 w-56 rounded-lg border border-border bg-white py-1 shadow-lg">
                 <div className="max-h-64 overflow-y-auto">
                   {FILTER_OPTIONS[filterType].map((option) => (
                     <label
                       key={option}
-                      className="flex cursor-pointer items-center gap-2 px-3 py-2 hover:bg-muted dark:hover:bg-secondary"
+                      className="flex cursor-pointer items-center gap-2 px-3 py-2 hover:bg-muted"
                     >
                       <input
                         type="checkbox"
@@ -116,7 +116,7 @@ export function UseCaseFilters({
                         onChange={() => toggleFilter(filterType, option)}
                         className="h-4 w-4 rounded border-border text-blue-600 focus:ring-blue-500"
                       />
-                      <span className="text-sm text-foreground dark:text-foreground">
+                      <span className="text-sm text-foreground">
                         {option}
                       </span>
                     </label>
@@ -131,7 +131,7 @@ export function UseCaseFilters({
         {hasActiveFilters && (
           <button
             onClick={clearAll}
-            className="flex items-center gap-1 rounded-lg border border-red-200 px-3 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-900/30"
+            className="flex items-center gap-1 rounded-lg border border-red-200 px-3 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-50"
           >
             <X className="h-4 w-4" />
             Clear all
@@ -146,16 +146,16 @@ export function UseCaseFilters({
             selectedFilters[filterType].map((value) => (
               <span
                 key={`${filterType}-${value}`}
-                className="inline-flex items-center gap-1 rounded-full bg-secondary px-2.5 py-1 text-xs font-medium text-foreground dark:bg-secondary dark:text-foreground"
+                className="inline-flex items-center gap-1 rounded-full bg-muted px-2.5 py-1 text-xs font-medium text-foreground"
               >
-                <span className="text-muted-foreground dark:text-muted-foreground">{filterLabels[filterType]}:</span>
+                <span className="text-muted-foreground">{filterLabels[filterType]}:</span>
                 {value}
                 <button
                   onClick={(e) => {
                     e.stopPropagation()
                     toggleFilter(filterType, value)
                   }}
-                  className="ml-1 rounded-full p-0.5 hover:bg-muted dark:hover:bg-secondary"
+                  className="ml-1 rounded-full p-0.5 hover:bg-muted"
                 >
                   <X className="h-3 w-3" />
                 </button>

@@ -11,16 +11,16 @@ interface HumanCardProps {
 
 const statusConfig = {
   online: {
-    dot: "bg-green-500 dark:bg-green-500",
-    badge: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
+    dot: "bg-green-500",
+    badge: "bg-green-100 text-green-700",
   },
   idle: {
-    dot: "bg-yellow-500 dark:bg-yellow-500",
-    badge: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
+    dot: "bg-yellow-500",
+    badge: "bg-yellow-100 text-yellow-700",
   },
   offline: {
-    dot: "bg-gray-400 dark:bg-gray-400",
-    badge: "bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400",
+    dot: "bg-gray-400",
+    badge: "bg-gray-100 text-gray-500",
   },
 }
 
@@ -44,7 +44,7 @@ export function HumanCard({ human }: HumanCardProps) {
   const status = statusConfig[human.status]
 
   return (
-    <div className="bg-card dark:bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+    <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
       <div className="p-5">
         {/* Header: Avatar, Name, Role, Status */}
         <div className="flex items-start gap-4">
@@ -52,7 +52,7 @@ export function HumanCard({ human }: HumanCardProps) {
           <div className="relative flex-shrink-0">
             {human.avatar.includes("dicebear") ? (
               // Use initials fallback if no image
-              <div className="w-14 h-14 rounded-full bg-muted dark:bg-muted flex items-center justify-center">
+              <div className="w-14 h-14 rounded-full bg-muted flex items-center justify-center">
                 <span className="text-lg font-semibold text-muted-foreground">
                   {getInitials(human.name)}
                 </span>
@@ -97,16 +97,16 @@ export function HumanCard({ human }: HumanCardProps) {
         {/* Growth & Help Wanted */}
         <div className="mt-4 space-y-2">
           <div className="flex items-start gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-blue-400 dark:bg-blue-500 mt-1.5 flex-shrink-0" />
+            <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
             <p className="text-sm text-muted-foreground">
-              <span className="font-medium text-blue-600 dark:text-blue-400">Looking to grow:</span>{" "}
+              <span className="font-medium text-blue-600">Looking to grow:</span>{" "}
               {human.growth}
             </p>
           </div>
           <div className="flex items-start gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-purple-400 dark:bg-purple-500 mt-1.5 flex-shrink-0" />
+            <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5 flex-shrink-0" />
             <p className="text-sm text-muted-foreground">
-              <span className="font-medium text-purple-600 dark:text-purple-400">Looking for help:</span>{" "}
+              <span className="font-medium text-purple-600">Looking for help:</span>{" "}
               {human.helpWanted}
             </p>
           </div>
