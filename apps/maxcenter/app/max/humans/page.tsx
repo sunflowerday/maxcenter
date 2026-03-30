@@ -10,21 +10,21 @@ function StatsBar({ humans }: { humans: Human[] }) {
   const offline = humans.filter((h) => h.status === "offline").length
 
   return (
-    <div className="flex flex-wrap gap-4 p-4 bg-muted dark:bg-muted/50 rounded-lg border border-border dark:border-border">
+    <div className="flex flex-wrap gap-4 p-4 bg-muted rounded-lg border border-border">
       <div className="flex items-center gap-2">
-        <div className="w-2.5 h-2.5 rounded-full bg-green-500 dark:bg-green-500" />
+        <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
         <span className="text-sm text-muted-foreground">
           <span className="font-semibold text-foreground">{online}</span> online
         </span>
       </div>
       <div className="flex items-center gap-2">
-        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500 dark:bg-yellow-500" />
+        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
         <span className="text-sm text-muted-foreground">
           <span className="font-semibold text-foreground">{idle}</span> idle
         </span>
       </div>
       <div className="flex items-center gap-2">
-        <div className="w-2.5 h-2.5 rounded-full bg-gray-400 dark:bg-gray-500" />
+        <div className="w-2.5 h-2.5 rounded-full bg-gray-400" />
         <span className="text-sm text-muted-foreground">
           <span className="font-semibold text-foreground">{offline}</span> offline
         </span>
@@ -42,8 +42,8 @@ export default function HumansPage() {
     <div className="p-6 max-w-7xl mx-auto">
       {/* Page Header */}
       <div className="flex items-center gap-3 mb-6">
-        <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-950/30">
-          <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+        <div className="p-2 rounded-lg bg-blue-100">
+          <Users className="w-6 h-6 text-blue-600" />
         </div>
         <div>
           <h1 className="text-2xl font-bold text-foreground">

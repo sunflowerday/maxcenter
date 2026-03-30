@@ -26,14 +26,14 @@ export default function CustomersPage() {
       <div className="flex-1 h-full p-6 min-w-0">
         <div className="h-full flex flex-col">
           <div className="mb-4">
-            <h1 className="text-2xl font-bold text-foreground dark:text-foreground">
+            <h1 className="text-2xl font-bold text-foreground">
               Customer Scatter
             </h1>
-            <p className="text-sm text-muted-foreground dark:text-muted-foreground mt-1">
+            <p className="text-sm text-muted-foreground mt-1">
               Click on a point to view customer details
             </p>
           </div>
-          <div className="flex-1 bg-background dark:bg-background rounded-xl border border-border dark:border-border p-4 min-h-0">
+          <div className="flex-1 bg-background rounded-xl border border-border p-4 min-h-0">
             <CustomerScatter
               customers={mockCustomers as Customer[]}
               selectedId={selectedCustomerId}

@@ -158,9 +158,9 @@ export default function BenchPage() {
                   key={arch.architecture}
                   className={cn(
                     "bg-background rounded-lg border p-4",
-                    idx === 0 ? "border-purple-500 dark:border-purple-500" :
-                    idx === 1 ? "border-blue-500 dark:border-blue-500" :
-                    "border-amber-500 dark:border-amber-500"
+                    idx === 0 ? "border-purple-500" :
+                    idx === 1 ? "border-blue-500" :
+                    "border-amber-500"
                   )}
                 >
                   <div className="flex items-center gap-2 mb-2">
@@ -222,9 +222,9 @@ export default function BenchPage() {
                       <div className="flex items-center gap-3">
                         <div className={cn(
                           "w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold",
-                          idx === 0 ? "bg-purple-100 text-purple-600 dark:bg-purple-900 dark:text-purple-300" :
-                          idx === 1 ? "bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300" :
-                          "bg-amber-100 text-amber-600 dark:bg-amber-900 dark:text-amber-300"
+                          idx === 0 ? "bg-purple-100 text-purple-600" :
+                          idx === 1 ? "bg-blue-100 text-blue-600" :
+                          "bg-amber-100 text-amber-600"
                         )}>
                           #{idx + 1}
                         </div>
@@ -289,8 +289,8 @@ export default function BenchPage() {
                         <td className="px-4 py-3 text-right">
                           <span className={cn(
                             "text-sm font-medium",
-                            claudeScore >= 90 ? "text-green-600 dark:text-green-400" :
-                            claudeScore >= 85 ? "text-blue-600 dark:text-blue-400" :
+                            claudeScore >= 90 ? "text-green-600" :
+                            claudeScore >= 85 ? "text-blue-600" :
                             "text-foreground"
                           )}>
                             {claudeScore}
@@ -299,8 +299,8 @@ export default function BenchPage() {
                         <td className="px-4 py-3 text-right">
                           <span className={cn(
                             "text-sm font-medium",
-                            gptScore >= 90 ? "text-green-600 dark:text-green-400" :
-                            gptScore >= 85 ? "text-blue-600 dark:text-blue-400" :
+                            gptScore >= 90 ? "text-green-600" :
+                            gptScore >= 85 ? "text-blue-600" :
                             "text-foreground"
                           )}>
                             {gptScore}
@@ -309,8 +309,8 @@ export default function BenchPage() {
                         <td className="px-4 py-3 text-right">
                           <span className={cn(
                             "text-sm font-medium",
-                            geminiScore >= 90 ? "text-green-600 dark:text-green-400" :
-                            geminiScore >= 85 ? "text-blue-600 dark:text-blue-400" :
+                            geminiScore >= 90 ? "text-green-600" :
+                            geminiScore >= 85 ? "text-blue-600" :
                             "text-foreground"
                           )}>
                             {geminiScore}
