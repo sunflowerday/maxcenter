@@ -3,6 +3,13 @@
 import { X } from "lucide-react"
 import { Customer } from "@/lib/mock-data"
 
+const CLUSTER_LABELS: Record<number, string> = {
+  0: "Finance & FinTech companies",
+  1: "Healthcare & Medical organizations",
+  2: "Education & Learning platforms",
+  3: "SaaS & Technology startups",
+}
+
 interface CustomerDetailPanelProps {
   customer: Customer | null
   onClose: () => void
@@ -18,10 +25,10 @@ function Badge({
   const baseClasses =
     "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
   const variantClasses = {
-    default: "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300",
-    primary: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
+    default: "bg-secondary text-secondary-foreground dark:bg-secondary dark:text-secondary-foreground",
+    primary: "bg-blue-50 text-blue-700 dark:bg-blue-950/30 dark:text-blue-400",
     secondary:
-      "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300",
+      "bg-purple-50 text-purple-700 dark:bg-purple-950/30 dark:text-purple-400",
   }
 
   return (
@@ -104,10 +111,7 @@ export function CustomerDetailPanel({
               Cluster {customer.clusterId}
             </p>
             <p className="text-xs text-muted-foreground dark:text-muted-foreground mt-1">
-              {customer.clusterId === 0 && "Finance & FinTech companies"}
-              {customer.clusterId === 1 && "Healthcare & Medical organizations"}
-              {customer.clusterId === 2 && "Education & Learning platforms"}
-              {customer.clusterId === 3 && "SaaS & Technology startups"}
+              {CLUSTER_LABELS[customer.clusterId]}
             </p>
           </div>
         </div>

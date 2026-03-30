@@ -1,3 +1,5 @@
+"use client"
+
 import { AgentSuggestion } from "@/lib/mock-data"
 import { Wrench, Package, Users, DollarSign, Search } from "lucide-react"
 
@@ -8,37 +10,37 @@ interface AgentCardProps {
 const categoryConfig = {
   workflow: {
     icon: Wrench,
-    color: "border-blue-500",
-    bgColor: "bg-blue-50",
-    textColor: "text-blue-700",
+    color: "border-blue-500 dark:border-blue-400",
+    bgColor: "bg-blue-50 dark:bg-blue-950/30",
+    textColor: "text-blue-700 dark:text-blue-400",
     label: "Workflow",
   },
   product: {
     icon: Package,
-    color: "border-purple-500",
-    bgColor: "bg-purple-50",
-    textColor: "text-purple-700",
+    color: "border-purple-500 dark:border-purple-400",
+    bgColor: "bg-purple-50 dark:bg-purple-950/30",
+    textColor: "text-purple-700 dark:text-purple-400",
     label: "Product",
   },
   collaboration: {
     icon: Users,
-    color: "border-green-500",
-    bgColor: "bg-green-50",
-    textColor: "text-green-700",
+    color: "border-green-500 dark:border-green-400",
+    bgColor: "bg-green-50 dark:bg-green-950/30",
+    textColor: "text-green-700 dark:text-green-400",
     label: "Collaboration",
   },
   cost: {
     icon: DollarSign,
-    color: "border-yellow-500",
-    bgColor: "bg-yellow-50",
-    textColor: "text-yellow-700",
+    color: "border-yellow-500 dark:border-yellow-400",
+    bgColor: "bg-yellow-50 dark:bg-yellow-950/30",
+    textColor: "text-yellow-700 dark:text-yellow-400",
     label: "Cost",
   },
   discovery: {
     icon: Search,
-    color: "border-orange-500",
-    bgColor: "bg-orange-50",
-    textColor: "text-orange-700",
+    color: "border-orange-500 dark:border-orange-400",
+    bgColor: "bg-orange-50 dark:bg-orange-950/30",
+    textColor: "text-orange-700 dark:text-orange-400",
     label: "Discovery",
   },
 }
@@ -50,22 +52,22 @@ function getConfidenceColor(confidence: number): {
 } {
   if (confidence > 80) {
     return {
-      bar: "bg-green-500",
-      text: "text-green-600",
-      bg: "bg-green-50",
+      bar: "bg-green-500 dark:bg-green-400",
+      text: "text-green-600 dark:text-green-400",
+      bg: "bg-green-50 dark:bg-green-950/30",
     }
   }
   if (confidence >= 50) {
     return {
-      bar: "bg-yellow-500",
-      text: "text-yellow-600",
-      bg: "bg-yellow-50",
+      bar: "bg-yellow-500 dark:bg-yellow-400",
+      text: "text-yellow-600 dark:text-yellow-400",
+      bg: "bg-yellow-50 dark:bg-yellow-950/30",
     }
   }
   return {
-    bar: "bg-red-500",
-    text: "text-red-600",
-    bg: "bg-red-50",
+    bar: "bg-red-500 dark:bg-red-400",
+    text: "text-red-600 dark:text-red-400",
+    bg: "bg-red-50 dark:bg-red-950/30",
   }
 }
 
@@ -103,7 +105,7 @@ export function AgentCard({ suggestion }: AgentCardProps) {
             {suggestion.confidence}%
           </span>
         </div>
-        <div className="h-2 bg-secondary rounded-full overflow-hidden">
+        <div className="h-2 bg-secondary dark:bg-secondary rounded-full overflow-hidden">
           <div
             className={`h-full ${confidenceColors.bar} rounded-full transition-all`}
             style={{ width: `${suggestion.confidence}%` }}

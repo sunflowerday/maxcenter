@@ -74,6 +74,8 @@ export function UseCaseFilters({
           <div key={filterType} className="relative">
             <button
               onClick={() => setOpenDropdown(openDropdown === filterType ? null : filterType)}
+              aria-expanded={openDropdown === filterType}
+              aria-haspopup="listbox"
               className={cn(
                 "flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition-colors",
                 "hover:bg-muted dark:hover:bg-secondary",
@@ -98,7 +100,10 @@ export function UseCaseFilters({
 
             {/* Dropdown Panel */}
             {openDropdown === filterType && (
-              <div className="absolute z-50 mt-1 w-56 rounded-lg border bg-background py-1 shadow-lg dark:bg-background dark:border-border">
+              <div
+                id={`${filterType}-dropdown`}
+                role="listbox"
+                className="absolute z-50 mt-1 w-56 rounded-lg border bg-background py-1 shadow-lg dark:bg-background dark:border-border">
                 <div className="max-h-64 overflow-y-auto">
                   {FILTER_OPTIONS[filterType].map((option) => (
                     <label

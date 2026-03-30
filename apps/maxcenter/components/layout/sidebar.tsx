@@ -31,8 +31,8 @@ export function Sidebar({ children }: SidebarProps) {
         <button
           onClick={() => setCollapsed(!collapsed)}
           className={cn(
-            "flex h-8 w-8 items-center justify-center rounded-lg",
-            "hover:bg-muted hover:text-foreground dark:hover:bg-primary dark:hover:text-foreground",
+            "flex h-11 w-11 items-center justify-center rounded-lg", // Increased from h-8 w-8 to h-11 w-11 for 44px+ touch target
+            "hover:bg-muted hover:text-foreground dark:hover:bg-accent dark:hover:text-accent-foreground",
             "text-muted-foreground dark:text-muted-foreground transition-colors",
             !collapsed && "ml-auto"
           )}

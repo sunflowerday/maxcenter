@@ -63,6 +63,7 @@ export default function UseCasesPage() {
           <input
             type="text"
             placeholder="Search use cases..."
+            aria-label="Search use cases"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full rounded-lg border border-border bg-background py-2 pl-10 pr-4 text-sm placeholder:text-muted-foreground focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-border dark:bg-background dark:text-foreground dark:placeholder:text-muted-foreground"

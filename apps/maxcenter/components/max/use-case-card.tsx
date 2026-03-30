@@ -29,7 +29,7 @@ export function UseCaseCard({ useCase }: UseCaseCardProps) {
     <Link href={`/max/use-cases/${useCase.id}`}>
       <article className="group relative flex h-full flex-col rounded-lg border bg-card p-4 shadow-sm transition-all hover:shadow-md dark:bg-card dark:border-border">
         {/* Title */}
-        <h3 className="mb-2 text-lg font-semibold text-foreground dark:text-foreground group-hover:text-blue-600 dark:group-hover:text-blue-400">
+        <h3 className="mb-2 text-lg font-semibold text-foreground dark:text-foreground group-hover:text-primary">
           {useCase.name}
         </h3>
 

@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import {
   ScatterChart,
   Scatter,
@@ -25,10 +26,10 @@ const CLUSTER_COLORS: Record<number, string> = {
 }
 
 const CLUSTER_LABELS: Record<number, string> = {
-  0: "Cluster 0 - Finance",
-  1: "Cluster 1 - Healthcare",
-  2: "Cluster 2 - Education",
-  3: "Cluster 3 - SaaS/Tech",
+  0: "Finance & FinTech companies",
+  1: "Healthcare & Medical organizations",
+  2: "Education & Learning platforms",
+  3: "SaaS & Technology startups",
 }
 
 interface CustomTooltipProps {
@@ -39,6 +40,12 @@ interface CustomTooltipProps {
 }
 
 function CustomTooltip({ active, payload }: CustomTooltipProps) {
+  const [isDark, setIsDark] = useState(false)
+
+  useEffect(() => {
+    setIsDark(document.documentElement.classList.contains("dark"))
+  }, [])
+
   if (active && payload && payload.length) {
     const customer = payload[0].payload
     return (
@@ -60,6 +67,24 @@ export function CustomerScatter({
   selectedId,
   onSelect,
 }: CustomerScatterProps) {
+  const [isDark, setIsDark] = useState(false)
+
+  useEffect(() => {
+    const checkDark = () => {
+      setIsDark(document.documentElement.classList.contains("dark"))
+    }
+    checkDark()
+    const observer = new MutationObserver(checkDark)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    })
+    return () => observer.disconnect()
+  }, [])
+
+  const axisColor = isDark ? "#374151" : "#e5e7eb"
+  const textColor = isDark ? "#9ca3af" : "#6b7280"
+
   const clusters = [0, 1, 2, 3]
   const selectedCustomer = customers.find((c) => c.id === selectedId)
 
@@ -73,7 +98,7 @@ export function CustomerScatter({
             domain={[0, 1]}
             name="X"
             tick={false}
-            axisLine={{ stroke: "#e5e7eb" }}
+            axisLine={{ stroke: axisColor }}
             tickLine={false}
           />
           <YAxis
@@ -82,7 +107,7 @@ export function CustomerScatter({
             domain={[0, 1]}
             name="Y"
             tick={false}
-            axisLine={{ stroke: "#e5e7eb" }}
+            axisLine={{ stroke: axisColor }}
             tickLine={false}
           />
           <Tooltip content={<CustomTooltip />} />
@@ -106,7 +131,7 @@ export function CustomerScatter({
                 name={CLUSTER_LABELS[clusterId]}
                 data={clusterCustomers}
                 fill={CLUSTER_COLORS[clusterId]}
-                onClick={(data) => onSelect(data.id)}
+                onClick={(data) => onSelect(data.payload.id)}
                 style={{ cursor: "pointer" }}
               />
             )
@@ -117,9 +142,9 @@ export function CustomerScatter({
               name="Selected"
               data={[selectedCustomer]}
               fill="#1f2937"
-              stroke="#000"
+              stroke={isDark ? "#f3f4f6" : "#000"}
               strokeWidth={2}
-              onClick={(data) => onSelect(data.id)}
+              onClick={(data) => onSelect(data.payload.id)}
               style={{ cursor: "pointer" }}
             />
           )}

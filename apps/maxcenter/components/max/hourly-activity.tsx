@@ -12,13 +12,13 @@ export function HourlyActivity({ activities }: HourlyActivityProps) {
       {activities.map((item) => (
         <div
           key={item.hour}
-          className="flex-shrink-0 flex flex-col items-center"
+          className="flex-shrink-0 flex flex-col items-center min-w-[4rem]"
         >
-          <span className="text-xs font-medium text-muted-foreground dark:text-gray-400 mb-1">
+          <span className="text-xs font-medium text-muted-foreground mb-1">
             {item.hour}:00
           </span>
           <div className="w-2 h-2 rounded-full bg-muted-foreground dark:bg-gray-600" />
-          <div className="mt-2 w-20 text-center">
+          <div className="mt-2 text-center max-w-[5rem]">
             <p className="text-xs text-muted-foreground dark:text-gray-300 leading-tight truncate">
               {item.activity}
             </p>

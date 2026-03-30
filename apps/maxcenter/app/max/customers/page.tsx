@@ -22,8 +22,8 @@ export default function CustomersPage() {
 
   return (
     <div className="flex h-[calc(100vh-64px)]">
-      {/* Scatter Plot - 70% width */}
-      <div className="w-[70%] h-full p-6">
+      {/* Scatter Plot - flexible width */}
+      <div className="flex-1 h-full p-6 min-w-0">
         <div className="h-full flex flex-col">
           <div className="mb-4">
             <h1 className="text-2xl font-bold text-foreground dark:text-foreground">
@@ -33,7 +33,7 @@ export default function CustomersPage() {
               Click on a point to view customer details
             </p>
           </div>
-          <div className="flex-1 bg-background dark:bg-background rounded-xl border border-border dark:border-border p-4">
+          <div className="flex-1 bg-background dark:bg-background rounded-xl border border-border dark:border-border p-4 min-h-0">
             <CustomerScatter
               customers={mockCustomers as Customer[]}
               selectedId={selectedCustomerId}
@@ -43,8 +43,8 @@ export default function CustomersPage() {
         </div>
       </div>
 
-      {/* Detail Panel - 30% width */}
-      <div className="w-[30%] h-full">
+      {/* Detail Panel - hidden on mobile, shown on tablet+ */}
+      <div className="hidden md:block w-[30%] h-full min-w-[280px] max-w-[400px]">
         <CustomerDetailPanel
           customer={selectedCustomer}
           onClose={handleClose}

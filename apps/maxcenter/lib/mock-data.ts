@@ -811,7 +811,7 @@ export const customers: Customer[] = [
   {
     id: 'cust-009',
     name: 'RetailNow Global',
-    avatar: 'https://api.dicebear.com/7.x/initials/svg?seed RNG',
+    avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=RNG',
     x: 0.88,
     y: 0.55,
     clusterId: 1,
