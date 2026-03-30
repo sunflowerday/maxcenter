@@ -27,10 +27,10 @@ export function SidebarNavItem({
       href={href}
       className={cn(
         "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
-        "hover:bg-muted hover:text-foreground dark:hover:bg-primary dark:hover:text-foreground",
+        "hover:bg-muted hover:text-foreground",
         isActive
-          ? "bg-muted text-foreground font-medium dark:bg-primary dark:text-foreground"
-          : "text-muted-foreground dark:text-muted-foreground",
+          ? "bg-muted text-foreground font-medium"
+          : "text-muted-foreground",
         collapsed && "justify-center px-2"
       )}
     >

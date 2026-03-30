@@ -1,39 +1,48 @@
 "use client"
 
 import { useState } from "react"
-import { Menu, X, BookOpen, Users, BarChart3, UserCircle, Bot } from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { Menu, X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { SidebarGroup } from "./sidebar-group"
-import { SidebarNavItem } from "./sidebar-nav"
 
 interface SidebarProps {
   children?: React.ReactNode
 }
 
+const navItems = [
+  { href: "/max/use-cases", label: "Use Cases" },
+  { href: "/max/customers", label: "Customers" },
+  { href: "/max/bench", label: "Bench" },
+  { href: "/max/humans", label: "Humans" },
+  { href: "/max/agents", label: "Agents" },
+]
+
 export function Sidebar({ children }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false)
+  const pathname = usePathname()
 
   return (
     <aside
       className={cn(
-        "flex flex-col border-r bg-background dark:bg-background transition-all duration-300",
-        collapsed ? "w-[60px]" : "w-[240px]"
+        "flex flex-col border-r bg-white transition-all duration-300",
+        collapsed ? "w-[60px]" : "w-[200px]"
       )}
     >
       {/* Header */}
       <div className="flex items-center justify-between border-b px-3 py-4">
         {!collapsed && (
-          <span className="text-lg font-semibold truncate text-foreground dark:text-foreground">
+          <span className="text-lg font-semibold truncate text-foreground">
             MaxCenter
           </span>
         )}
         <button
           onClick={() => setCollapsed(!collapsed)}
           className={cn(
-            "flex h-11 w-11 items-center justify-center rounded-lg", // Increased from h-8 w-8 to h-11 w-11 for 44px+ touch target
-            "hover:bg-muted hover:text-foreground dark:hover:bg-accent dark:hover:text-accent-foreground",
-            "text-muted-foreground dark:text-muted-foreground transition-colors",
+            "flex h-11 w-11 items-center justify-center rounded-lg",
+            "hover:bg-muted hover:text-foreground",
+            "text-muted-foreground transition-colors",
             !collapsed && "ml-auto"
           )}
           aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
@@ -48,47 +57,22 @@ export function Sidebar({ children }: SidebarProps) {
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto p-3">
-        {/* Product Market Fit */}
-        <SidebarGroup title="Product Market Fit" icon={BookOpen}>
-          <SidebarNavItem
-            href="/max/use-cases"
-            icon={BookOpen}
-            label="Use Cases"
-            collapsed={collapsed}
-          />
-          <SidebarNavItem
-            href="/max/customers"
-            icon={Users}
-            label="Customers"
-            collapsed={collapsed}
-          />
-        </SidebarGroup>
-
-        {/* Product Technology Fit */}
-        <SidebarGroup title="Product Technology Fit" icon={BarChart3}>
-          <SidebarNavItem
-            href="/max/bench"
-            icon={BarChart3}
-            label="Bench"
-            collapsed={collapsed}
-          />
-        </SidebarGroup>
-
-        {/* Product Team Fit */}
-        <SidebarGroup title="Product Team Fit" icon={UserCircle}>
-          <SidebarNavItem
-            href="/max/humans"
-            icon={UserCircle}
-            label="Humans"
-            collapsed={collapsed}
-          />
-          <SidebarNavItem
-            href="/max/agents"
-            icon={Bot}
-            label="Agents"
-            collapsed={collapsed}
-          />
-        </SidebarGroup>
+        {navItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={cn(
+              "flex items-center rounded-lg px-3 py-2 text-sm transition-colors mb-1",
+              "hover:bg-muted hover:text-foreground",
+              pathname === item.href
+                ? "bg-muted text-foreground font-medium"
+                : "text-muted-foreground",
+              collapsed && "justify-center px-2"
+            )}
+          >
+            {!collapsed && <span className="truncate">{item.label}</span>}
+          </Link>
+        ))}
       </nav>
 
       {/* Additional content passed as children */}

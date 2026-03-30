@@ -6,10 +6,12 @@ export default function MaxLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen flex-col">
       <Sidebar />
-      <main className="flex-1 overflow-y-auto">
-        {children}
+      <main className="flex-1 bg-background">
+        <div className="container py-8">
+          {children}
+        </div>
       </main>
     </div>
   )

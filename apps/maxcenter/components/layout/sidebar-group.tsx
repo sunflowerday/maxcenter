@@ -26,8 +26,8 @@ export function SidebarGroup({
         onClick={() => setIsCollapsed(!isCollapsed)}
         className={cn(
           "flex w-full items-center gap-2 px-3 py-2 text-sm font-semibold",
-          "text-muted-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-foreground",
-          "transition-colors rounded-lg hover:bg-muted dark:hover:bg-primary"
+          "text-muted-foreground hover:text-foreground",
+          "transition-colors rounded-lg hover:bg-muted"
         )}
       >
         <Icon className="h-4 w-4 shrink-0" />
