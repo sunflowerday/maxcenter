@@ -1,29 +1,10 @@
 /**
  * API Route: /api/bench/rankings
- * 排行榜 API - 使用 Vercel KV (Upstash Redis) 存储
+ * 排行榜 API - 使用 Upstash REST API 存储
  */
 
 import { NextRequest, NextResponse } from 'next/server'
-
-// Vercel KV imports (支持本地开发和 Vercel 部署)
-let kv: any = null
-
-async function getKV() {
-  if (kv) return kv
-
-  // 检查是否有 Vercel KV 环境变量
-  if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
-    const { createClient } = await import('@vercel/kv')
-    kv = createClient({
-      url: process.env.KV_REST_API_URL,
-      token: process.env.KV_REST_API_TOKEN,
-    })
-    return kv
-  }
-
-  // 本地开发模式：使用 JSON 文件
-  return null
-}
+import { kvGet, kvSet, kvDel, isKVConfigured } from '@/lib/upstash'
 
 const RANKINGS_KEY = 'bench:rankings'
 const DATA_FILE = 'data/rankings.json'
@@ -75,13 +56,11 @@ function sortRankings(rankings: RankingEntry[]): RankingEntry[] {
 // GET /api/bench/rankings
 export async function GET() {
   try {
-    const kvClient = await getKV()
-
     let rankings: RankingEntry[] = []
 
-    if (kvClient) {
-      // 使用 Vercel KV
-      const data = await kvClient.get(RANKINGS_KEY)
+    if (isKVConfigured()) {
+      // 使用 Upstash
+      const data = await kvGet(RANKINGS_KEY)
       rankings = data ? JSON.parse(data) : []
     } else {
       // 本地开发模式
@@ -93,7 +72,7 @@ export async function GET() {
     return NextResponse.json({
       rankings: sorted,
       total: sorted.length,
-      source: kvClient ? 'vercel-kv' : 'local',
+      source: isKVConfigured() ? 'vercel-kv' : 'local',
     })
   } catch (e) {
     console.error('Error fetching rankings:', e)
@@ -111,11 +90,8 @@ export async function DELETE(request: NextRequest) {
   }
 
   try {
-    const kvClient = await getKV()
-
-    if (kvClient) {
-      // 清除 Vercel KV
-      await kvClient.del(RANKINGS_KEY)
+    if (isKVConfigured()) {
+      await kvDel(RANKINGS_KEY)
     }
 
     // 清除本地文件
@@ -129,7 +105,7 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: 'All rankings cleared',
-      source: kvClient ? 'vercel-kv' : 'local',
+      source: isKVConfigured() ? 'vercel-kv' : 'local',
     })
   } catch (e) {
     console.error('Error clearing rankings:', e)
@@ -147,15 +123,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
     }
 
-    const kvClient = await getKV()
     let rankings: RankingEntry[] = []
 
-    if (kvClient) {
-      // 使用 Vercel KV
-      const data = await kvClient.get(RANKINGS_KEY)
+    if (isKVConfigured()) {
+      const data = await kvGet(RANKINGS_KEY)
       rankings = data ? JSON.parse(data) : []
     } else {
-      // 本地开发模式
       rankings = await readLocalRankings()
     }
 
@@ -178,8 +151,8 @@ export async function POST(request: NextRequest) {
     }
 
     // 保存
-    if (kvClient) {
-      await kvClient.set(RANKINGS_KEY, JSON.stringify(rankings))
+    if (isKVConfigured()) {
+      await kvSet(RANKINGS_KEY, JSON.stringify(rankings))
     } else {
       await writeLocalRankings(rankings)
     }
@@ -200,7 +173,7 @@ export async function POST(request: NextRequest) {
       currentScoreCount: scoreCount,
       nextUser: nextUser ? { userId: nextUser.userId, scoreCount: nextUser.scoreCount } : null,
       gapToNext: Math.max(0, gapToNext),
-      source: kvClient ? 'vercel-kv' : 'local',
+      source: isKVConfigured() ? 'vercel-kv' : 'local',
     })
   } catch (e) {
     console.error('Error processing ranking:', e)

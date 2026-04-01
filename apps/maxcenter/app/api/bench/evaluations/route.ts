@@ -1,44 +1,19 @@
 /**
  * API Route: /api/bench/evaluations
- * 用户评测详情 API - 使用 Vercel KV (Upstash Redis) 存储
+ * 用户评测详情 API - 使用 Upstash REST API 存储
  */
 
 import { NextRequest, NextResponse } from 'next/server'
+import { kvGet, kvSet, kvDel, isKVConfigured } from '@/lib/upstash'
 
-// Vercel KV imports (支持本地开发和 Vercel 部署)
-let kv: any = null
-
-async function getKV() {
-  if (kv) return kv
-
-  if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
-    const { createClient } = await import('@vercel/kv')
-    kv = createClient({
-      url: process.env.KV_REST_API_URL,
-      token: process.env.KV_REST_API_TOKEN,
-    })
-    return kv
-  }
-
-  return null
-}
-
-// 数据存储配置
 const EVALUATIONS_KEY_PREFIX = 'bench:evals:'
-const EVALUATIONS_LIST_KEY = 'bench:evaluations:users'
 const DATA_DIR = 'data/evaluations'
 
 interface EvaluationRecord {
   taskId: string
-  score: number | null  // null = 跳过
+  score: number | null
   note?: string
   timestamp: string
-}
-
-interface UserEvaluations {
-  userId: string
-  evaluations: EvaluationRecord[]
-  updatedAt: string
 }
 
 // 本地文件操作
@@ -73,12 +48,7 @@ async function writeLocalEvaluations(userId: string, evaluations: EvaluationReco
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true })
     }
-    const data: UserEvaluations = {
-      userId,
-      evaluations,
-      updatedAt: new Date().toISOString(),
-    }
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2))
+    fs.writeFileSync(filePath, JSON.stringify(evaluations, null, 2))
   } catch (e) {
     console.error('Error writing local evaluations:', e)
   }
@@ -93,11 +63,10 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const kvClient = await getKV()
     let evaluations: EvaluationRecord[] = []
 
-    if (kvClient) {
-      const data = await kvClient.get(`${EVALUATIONS_KEY_PREFIX}${userId}`)
+    if (isKVConfigured()) {
+      const data = await kvGet(`${EVALUATIONS_KEY_PREFIX}${userId}`)
       evaluations = data ? JSON.parse(data) : []
     } else {
       evaluations = await readLocalEvaluations(userId)
@@ -107,7 +76,7 @@ export async function GET(request: NextRequest) {
       userId,
       evaluations,
       total: evaluations.length,
-      source: kvClient ? 'vercel-kv' : 'local',
+      source: isKVConfigured() ? 'vercel-kv' : 'local',
     })
   } catch (e) {
     console.error('Error fetching evaluations:', e)
@@ -126,12 +95,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'userId and taskId are required' }, { status: 400 })
     }
 
-    const kvClient = await getKV()
     let evaluations: EvaluationRecord[] = []
 
     // 读取现有数据
-    if (kvClient) {
-      const data = await kvClient.get(`${EVALUATIONS_KEY_PREFIX}${userId}`)
+    if (isKVConfigured()) {
+      const data = await kvGet(`${EVALUATIONS_KEY_PREFIX}${userId}`)
       evaluations = data ? JSON.parse(data) : []
     } else {
       evaluations = await readLocalEvaluations(userId)
@@ -147,16 +115,14 @@ export async function POST(request: NextRequest) {
     }
 
     if (existingIndex >= 0) {
-      // 更新现有记录
       evaluations[existingIndex] = newRecord
     } else {
-      // 新增记录
       evaluations.push(newRecord)
     }
 
     // 保存
-    if (kvClient) {
-      await kvClient.set(`${EVALUATIONS_KEY_PREFIX}${userId}`, JSON.stringify(evaluations))
+    if (isKVConfigured()) {
+      await kvSet(`${EVALUATIONS_KEY_PREFIX}${userId}`, JSON.stringify(evaluations))
     } else {
       await writeLocalEvaluations(userId, evaluations)
     }
@@ -166,7 +132,7 @@ export async function POST(request: NextRequest) {
       taskId,
       record: newRecord,
       totalEvaluations: evaluations.length,
-      source: kvClient ? 'vercel-kv' : 'local',
+      source: isKVConfigured() ? 'vercel-kv' : 'local',
     })
   } catch (e) {
     console.error('Error saving evaluation:', e)
@@ -185,11 +151,9 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'userId and evaluations array are required' }, { status: 400 })
     }
 
-    const kvClient = await getKV()
-
     // 保存
-    if (kvClient) {
-      await kvClient.set(`${EVALUATIONS_KEY_PREFIX}${userId}`, JSON.stringify(evaluations))
+    if (isKVConfigured()) {
+      await kvSet(`${EVALUATIONS_KEY_PREFIX}${userId}`, JSON.stringify(evaluations))
     } else {
       await writeLocalEvaluations(userId, evaluations)
     }
@@ -198,7 +162,7 @@ export async function PUT(request: NextRequest) {
       success: true,
       userId,
       totalEvaluations: evaluations.length,
-      source: kvClient ? 'vercel-kv' : 'local',
+      source: isKVConfigured() ? 'vercel-kv' : 'local',
     })
   } catch (e) {
     console.error('Error saving evaluations:', e)
@@ -222,10 +186,8 @@ export async function DELETE(request: NextRequest) {
   }
 
   try {
-    const kvClient = await getKV()
-
-    if (kvClient) {
-      await kvClient.del(`${EVALUATIONS_KEY_PREFIX}${userId}`)
+    if (isKVConfigured()) {
+      await kvDel(`${EVALUATIONS_KEY_PREFIX}${userId}`)
     } else {
       const fs = await import('fs')
       const filePath = await getLocalUserFile(userId)
@@ -238,7 +200,7 @@ export async function DELETE(request: NextRequest) {
       success: true,
       userId,
       message: 'User evaluations cleared',
-      source: kvClient ? 'vercel-kv' : 'local',
+      source: isKVConfigured() ? 'vercel-kv' : 'local',
     })
   } catch (e) {
     console.error('Error clearing evaluations:', e)
