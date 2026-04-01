@@ -104,7 +104,7 @@ export async function GET() {
 // DELETE /api/bench/rankings?secret=xxx - 管理员清除所有排行榜数据
 export async function DELETE(request: NextRequest) {
   const secret = request.nextUrl.searchParams.get('secret')
-  const adminSecret = process.env.ADMIN_SECRET || 'maxloveruser'
+  const adminSecret = process.env.ADMIN_SECRET || 'maxloveuser'
 
   if (secret !== adminSecret) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
