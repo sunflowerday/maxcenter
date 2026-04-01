@@ -165,7 +165,6 @@ export default function BenchSwipePage() {
           type: task.type,
           initialUserMessage: task.initialUserMessage,
           hiddenContext: task.hiddenContext,
-          grading: task.gradingZh,
         }))
 
         if (mappedTasks.length > 0) {
@@ -392,7 +391,7 @@ export default function BenchSwipePage() {
 
     // Update ranking (skip for null scores/skip)
     if (score !== null && userId) {
-      const newScoreCount = scoredTasks.length + 1 // +1 because we just added
+      const newScoreCount = scores.length + 1 // +1 because we just added
       fetch('/api/bench/rankings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -421,17 +420,44 @@ export default function BenchSwipePage() {
 
           // Check for Easter Egg if ranking didn't show (priority to ranking)
           if (!rankingShown) {
-            checkEasterEggTrigger()
+            const questionsSinceLastEasterEgg = scores.length - easterEggTriggeredAt
+            if (questionsSinceLastEasterEgg >= 4) {
+              const triggerAt = 4 + Math.floor(Math.random() * 3)
+              if (questionsSinceLastEasterEgg >= triggerAt) {
+                const egg = getRandomEasterEgg()
+                setLastEasterEggId(egg.id)
+                setEasterEggTriggeredAt(scores.length)
+                setTimeout(() => setShowEasterEgg(true), 600)
+              }
+            }
           }
         })
         .catch((err) => {
           console.error(err)
           // Even if ranking API fails, try Easter Egg
-          checkEasterEggTrigger()
+          const questionsSinceLastEasterEgg = scores.length - easterEggTriggeredAt
+          if (questionsSinceLastEasterEgg >= 4) {
+            const triggerAt = 4 + Math.floor(Math.random() * 3)
+            if (questionsSinceLastEasterEgg >= triggerAt) {
+              const egg = getRandomEasterEgg()
+              setLastEasterEggId(egg.id)
+              setEasterEggTriggeredAt(scores.length)
+              setTimeout(() => setShowEasterEgg(true), 600)
+            }
+          }
         })
     } else if (score === null) {
       // Skip score - still check for Easter Egg
-      checkEasterEggTrigger()
+      const questionsSinceLastEasterEgg = scores.length - easterEggTriggeredAt
+      if (questionsSinceLastEasterEgg >= 4) {
+        const triggerAt = 4 + Math.floor(Math.random() * 3)
+        if (questionsSinceLastEasterEgg >= triggerAt) {
+          const egg = getRandomEasterEgg()
+          setLastEasterEggId(egg.id)
+          setEasterEggTriggeredAt(scores.length)
+          setTimeout(() => setShowEasterEgg(true), 600)
+        }
+      }
     }
 
     // Stop recording if active
