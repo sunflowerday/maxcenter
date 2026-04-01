@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Brain } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -11,10 +11,17 @@ interface SidebarProps {
   children?: React.ReactNode
 }
 
-const navItems = [
+type NavItem = {
+  href: string
+  label: string
+  icon?: React.ComponentType<{ className?: string }>
+}
+
+const navItems: NavItem[] = [
   { href: "/max/use-cases", label: "Use Cases" },
   { href: "/max/customers", label: "Customers" },
   { href: "/max/bench", label: "Bench" },
+  { href: "/max/insights", label: "Team Insights", icon: Brain },
   { href: "/max/humans", label: "Humans" },
   { href: "/max/agents", label: "Agents" },
 ]
@@ -70,7 +77,14 @@ export function Sidebar({ children }: SidebarProps) {
               collapsed && "justify-center px-2"
             )}
           >
-            {!collapsed && <span className="truncate">{item.label}</span>}
+            {collapsed ? (
+              item.icon ? <item.icon className="h-4 w-4" /> : <span className="h-4 w-4" />
+            ) : (
+              <>
+                {item.icon && <item.icon className="h-4 w-4 mr-2 flex-shrink-0" />}
+                <span className="truncate">{item.label}</span>
+              </>
+            )}
           </Link>
         ))}
       </nav>

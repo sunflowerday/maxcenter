@@ -2782,9 +2782,7 @@ export const migratedBenchTasks: MigratedBenchTask[] = [
     ],
     "notes": [
       "pinchbench 手工优化 2026-03-29：补齐中英 initial；hidden 五段；交付 `xhs_review.md`；fixtures 含正文+运营纲要；grading 列表；禁止灰产导向。",
-      {
-        "原 `tools": "computational` 改为 file_system，与读文件判分一致。"
-      }
+      "原 `tools` computational 改为 file_system，与读文件判分一致。"
     ]
   },
   {
@@ -14904,9 +14902,7 @@ export const migratedBenchTasks: MigratedBenchTask[] = [
     ],
     "notes": [
       "原 hidden 为错贴的 git 游戏说明；已重写并对齐智能家居题面。",
-      {
-        "移除非闭集 `embodied`；保留 `type": "claude_cowork`。"
-      }
+      "移除非闭集 embodied；保留 type claude_cowork。"
     ]
   },
   {
@@ -22750,9 +22746,7 @@ export const migratedBenchTasks: MigratedBenchTask[] = [
     ],
     "notes": [
       "optimized 2026-04-01 — domain snake_case; deduped discord-heavy refs",
-      {
-        "optimized 2026-04-01 — task_019 alignment": "hygiene policy field names, Bench, zh grading quoted, type openclaw"
-      }
+      "optimized 2026-04-01 — task_019 alignment: hygiene policy field names, Bench, zh grading quoted, type openclaw"
     ]
   },
   {
@@ -23136,9 +23130,7 @@ export const migratedBenchTasks: MigratedBenchTask[] = [
       }
     ],
     "notes": [
-      {
-        "optimized 2026-04-01 — task_019 alignment": "numbered deliverable, Bench, tools closure, grading phrasing"
-      }
+      "optimized 2026-04-01 — task_019 alignment: numbered deliverable, Bench, tools closure, grading phrasing"
     ]
   },
   {

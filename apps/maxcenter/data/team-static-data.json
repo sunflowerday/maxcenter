@@ -1,0 +1,14 @@
+{
+  "meeting_notes": [
+    { "date": "2026-03-15", "summary": "讨论了 AI 工具在团队中的使用情况，大家对自动化工作流很感兴趣" },
+    { "date": "2026-03-22", "summary": "分享了各成员使用 Claude Code 的经验，friction point 是主要话题" },
+    { "date": "2026-03-29", "summary": "确定了 Team Insights 功能的需求，同意先用 Vercel Postgres 存储" }
+  ],
+  "feishu_stats": {
+    "total_messages": 3637,
+    "active_members": 7,
+    "groups": ["product-dev", "design", "general"],
+    "weekly_active": 5,
+    "last_updated": "2026-03-30"
+  }
+}

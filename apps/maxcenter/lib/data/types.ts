@@ -154,6 +154,7 @@ export interface PinchBenchTask {
   type: string
   initialUserMessage: string
   hiddenContext: string
+  grading?: string
 }
 
 // Transcript types for session message rendering
