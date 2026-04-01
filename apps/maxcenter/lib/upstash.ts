@@ -67,13 +67,14 @@ export async function kvSet(key: string, value: string): Promise<boolean> {
   }
 
   try {
+    // value 已经是 JSON 字符串，直接发送
     const response = await fetch(`${KV_REST_API_URL}/set/${encodeURIComponent(key)}`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${KV_REST_API_TOKEN}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(value),
+      body: value,
     })
 
     return response.ok
