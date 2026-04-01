@@ -175,6 +175,7 @@ export default function BenchSwipePage() {
           const savedShuffle = localStorage.getItem(SHUFFLE_KEY)
           let orderedTasks = mappedTasks
           let restoredIndex = 0
+          let serverEvaluations: TaskScore[] = []
 
           if (savedShuffle) {
             try {
@@ -207,8 +208,38 @@ export default function BenchSwipePage() {
             toast.success("已为您随机排序题目")
           }
 
+          // Load evaluations from server
+          if (currentUserId) {
+            try {
+              const evalResponse = await fetch(`/api/bench/evaluations?userId=${encodeURIComponent(currentUserId)}`)
+              if (evalResponse.ok) {
+                const evalData = await evalResponse.json()
+                if (evalData.evaluations && evalData.evaluations.length > 0) {
+                  serverEvaluations = evalData.evaluations.map((e: any) => ({
+                    taskId: e.taskId,
+                    score: e.score,
+                    note: e.note,
+                    timestamp: new Date(e.timestamp).getTime(),
+                  }))
+                  // Find the first unevaluated task
+                  const evaluatedTaskIds = new Set(serverEvaluations.map(e => e.taskId))
+                  const firstUndone = orderedTasks.findIndex(t => !evaluatedTaskIds.has(t.id))
+                  if (firstUndone > 0) {
+                    restoredIndex = firstUndone
+                    toast.info(`已从服务器恢复 ${serverEvaluations.length} 条评测记录`)
+                  }
+                }
+              }
+            } catch (err) {
+              console.error('Failed to load evaluations from server:', err)
+            }
+          }
+
           setTasks(orderedTasks)
           setCurrentIndex(restoredIndex)
+          if (serverEvaluations.length > 0) {
+            setScores(serverEvaluations)
+          }
 
           // Initialize new session
           const newSessionId = `session_${Date.now()}`
@@ -388,6 +419,20 @@ export default function BenchSwipePage() {
 
     // Track if ranking popup was shown
     let rankingShown = false
+
+    // Save evaluation to server (Vercel KV)
+    if (userId) {
+      fetch('/api/bench/evaluations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId,
+          taskId: currentTask.id,
+          score,
+          note: currentNote.trim() || undefined,
+        }),
+      }).catch(err => console.error('Failed to save evaluation to server:', err))
+    }
 
     // Update ranking (skip for null scores/skip)
     if (score !== null && userId) {
