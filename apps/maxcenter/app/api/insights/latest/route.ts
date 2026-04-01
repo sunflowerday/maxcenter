@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { sql } from "@vercel/postgres"
+import { kv } from "@vercel/kv"
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
@@ -7,22 +7,37 @@ export async function GET(req: NextRequest) {
 
   try {
     if (member_id) {
-      const result = await sql`
-        SELECT * FROM insights_history
-        WHERE member_id = ${member_id}
-        ORDER BY created_at DESC
-        LIMIT 1
-      `
-      return NextResponse.json({ insights: result.rows, count: result.rows.length })
+      // Get latest for specific member
+      const keys = await kv.keys(`insights:${member_id}:*`)
+      if (keys.length === 0) {
+        return NextResponse.json({ insights: [], count: 0 })
+      }
+      const latestKey = keys.sort().pop()
+      const data = await kv.get(latestKey!)
+      const insight = typeof data === 'string' ? JSON.parse(data) : data
+      return NextResponse.json({ insights: [insight], count: 1 })
     } else {
-      const result = await sql`
-        SELECT DISTINCT ON (member_id) * FROM insights_history
-        ORDER BY member_id, created_at DESC
-      `
-      return NextResponse.json({ insights: result.rows, count: result.rows.length })
+      // Get latest for all members
+      const allKeys = await kv.keys('insights:*')
+      const memberLatest: Record<string, any> = {}
+
+      for (const key of allKeys) {
+        if (key.includes(':latest')) continue
+        const data = await kv.get(key)
+        if (data) {
+          const insight = typeof data === 'string' ? JSON.parse(data) : data
+          const mid = insight.member_id
+          if (!memberLatest[mid] || new Date(insight.created_at) > new Date(memberLatest[mid].created_at)) {
+            memberLatest[mid] = insight
+          }
+        }
+      }
+
+      const insights = Object.values(memberLatest)
+      return NextResponse.json({ insights, count: insights.length })
     }
   } catch (err: any) {
-    console.warn('[insights/latest] Postgres unavailable — returning empty:', err.message)
-    return NextResponse.json({ insights: [], count: 0, local_demo: true, message: 'Database unavailable' }, { status: 200 })
+    console.warn('[insights/latest] Redis unavailable:', err.message)
+    return NextResponse.json({ insights: [], count: 0, local_demo: true, message: 'Redis unavailable' }, { status: 200 })
   }
 }

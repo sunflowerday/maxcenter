@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { sql } from "@vercel/postgres"
+import { kv } from "@vercel/kv"
 import Anthropic from "@anthropic-ai/sdk"
 
 const anthropic = new Anthropic()
@@ -7,7 +7,6 @@ const anthropic = new Anthropic()
 function buildPrompt(insightsRows: any[]): string {
   const insightsJson = JSON.stringify(insightsRows, null, 2)
 
-  // Static data for context (meeting notes + Feishu stats)
   const meetingNotes = [
     { date: "2026-03-15", summary: "讨论了 AI 工具在团队中的使用情况，大家对自动化工作流很感兴趣" },
     { date: "2026-03-22", summary: "分享了各成员使用 Claude Code 的经验，friction point 是主要话题" },
@@ -44,6 +43,25 @@ ${meetingNotes.map(m => `- ${m.date}: ${m.summary}`).join("\n")}}
 请用中文回复，输出格式化的 Markdown。`
 }
 
+async function getLatestInsights(): Promise<any[]> {
+  const allKeys = await kv.keys('insights:*')
+  const memberLatest: Record<string, any> = {}
+
+  for (const key of allKeys) {
+    if (key.includes(':latest')) continue
+    const data = await kv.get(key)
+    if (data) {
+      const insight = typeof data === 'string' ? JSON.parse(data) : data
+      const mid = insight.member_id
+      if (!memberLatest[mid] || new Date(insight.created_at) > new Date(memberLatest[mid].created_at)) {
+        memberLatest[mid] = insight
+      }
+    }
+  }
+
+  return Object.values(memberLatest)
+}
+
 export async function POST(req: NextRequest) {
   const body = await req.json()
   const { trigger_analysis } = body
@@ -51,19 +69,15 @@ export async function POST(req: NextRequest) {
   let insightsRows: any[] = []
 
   try {
-    const result = await sql`
-      SELECT DISTINCT ON (member_id) * FROM insights_history
-      ORDER BY member_id, created_at DESC
-    `
-    insightsRows = result.rows
+    insightsRows = await getLatestInsights()
   } catch (dbErr: any) {
-    console.warn('[team/deep-analysis] Postgres unavailable:', dbErr.message)
+    console.warn('[team/deep-analysis] Redis unavailable:', dbErr.message)
     const prompt = buildPrompt([])
     return NextResponse.json({
       success: false,
       fallback: true,
       prompt,
-      message: 'Database unavailable - returning prompt only'
+      message: 'Redis unavailable - returning prompt only'
     }, { status: 200 })
   }
 
@@ -88,12 +102,14 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Store result
+    // Store result in Redis
     try {
-      await sql`
-        INSERT INTO deep_analysis (prompt, result, created_at)
-        VALUES (${prompt}, ${fullResponse}, NOW())
-      `
+      const analysisKey = `deep_analysis:${Date.now()}`
+      await kv.set(analysisKey, JSON.stringify({
+        prompt,
+        result: fullResponse,
+        created_at: new Date().toISOString()
+      }))
     } catch (storeErr: any) {
       console.warn('[team/deep-analysis] Failed to store result:', storeErr.message)
     }
@@ -110,10 +126,19 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   try {
-    const result = await sql`
-      SELECT * FROM deep_analysis ORDER BY created_at DESC LIMIT 10
-    `
-    return NextResponse.json({ analyses: result.rows, count: result.rows.length })
+    const allKeys = await kv.keys('deep_analysis:*')
+    const analyses = []
+
+    for (const key of allKeys.slice(-10)) {
+      const data = await kv.get(key)
+      if (data) {
+        analyses.push(typeof data === 'string' ? JSON.parse(data) : data)
+      }
+    }
+
+    analyses.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+
+    return NextResponse.json({ analyses: analyses.slice(0, 10), count: analyses.length })
   } catch (err: any) {
     return NextResponse.json({ analyses: [], count: 0, message: err.message }, { status: 200 })
   }
