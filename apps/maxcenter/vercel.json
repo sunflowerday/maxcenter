@@ -1,0 +1,5 @@
+{
+  "buildCommand": "pnpm --filter maxcenter build",
+  "framework": "nextjs",
+  "regions": ["iad1"]
+}
