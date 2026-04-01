@@ -843,10 +843,10 @@ export default function BenchSwipePage() {
   }
 
   return (
-    // 移动端: flex-1 min-h-0 填充剩余空间 (父容器已 offset header)
+    // 移动端: 使用 100dvh 固定视口高度 (解决 Safari 地址栏问题)
     // 桌面端: h-[calc(100vh-4rem)] 减去 sidebar
     <div
-      className="flex flex-1 min-h-0 flex-col overflow-hidden sm:h-[calc(100vh-4rem)]"
+      className="flex flex-col overflow-hidden h-[100dvh] sm:h-[calc(100vh-4rem)]"
       style={{
         touchAction: 'pan-x pan-y',
         userSelect: 'none',
@@ -882,8 +882,8 @@ export default function BenchSwipePage() {
       </div>
 
       {/* Card Area - 控制最大高度，水平居中 */}
-      <div className="flex-1 w-full max-w-lg mx-auto flex flex-col min-h-0 px-3 pb-2">
-        <div className="relative flex-1 min-h-0 overflow-hidden rounded-2xl border border-border/30 bg-card shadow-lg">
+      <div className="flex-1 w-full max-w-lg mx-auto flex flex-col px-3 pb-2 min-h-0">
+        <div className="relative flex-1 overflow-hidden rounded-2xl border border-border/30 bg-card shadow-lg">
           {/* 下一张卡片预览 - 滑动时升起 */}
           {nextTask && !showSummary && (
             <div
